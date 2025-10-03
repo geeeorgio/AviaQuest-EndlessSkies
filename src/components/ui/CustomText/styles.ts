@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from 'src/constants/colors';
-import { FONTS } from 'src/constants/fonts';
+import { COLORS, FONTS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   default: {
     fontFamily: FONTS.Main,
-    color: COLORS.Primary,
+    color: COLORS.Black,
   },
 });

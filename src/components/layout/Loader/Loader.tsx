@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Settings = () => {
+const Loader = () => {
   return (
     <View>
-      <Text>Settings</Text>
+      <Text>Loader</Text>
     </View>
   );
 };
 
-export default Settings;
+export default Loader;

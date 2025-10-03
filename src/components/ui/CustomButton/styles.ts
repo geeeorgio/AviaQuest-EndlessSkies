@@ -1,20 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from 'src/constants/colors';
+import { COLORS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   btn: {
     justifyContent: 'center',
     alignItems: 'center',
-
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.44,
-    shadowRadius: 5.27,
-
-    elevation: 12,
   },
   btnPressed: {
     opacity: 0.8,
@@ -24,10 +15,10 @@ export const styles = StyleSheet.create({
   },
   prime: {
     backgroundColor: COLORS.Primary,
-    borderRadius: 15,
+    borderRadius: 20,
   },
   secondary: {
     backgroundColor: COLORS.Secondary,
-    borderRadius: 15,
+    borderRadius: 20,
   },
 });

@@ -1,14 +1,22 @@
-import { StatusBar, Text, useColorScheme } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { RootNavigator } from './navigation';
+import { persistor, store } from './redux/store';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Text>Hello</Text>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 

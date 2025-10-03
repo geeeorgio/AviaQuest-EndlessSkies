@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 import type { ImageSourcePropType } from 'react-native';
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { styles } from './styles';
 
 interface LayoutProps {
   children: ReactNode;
@@ -22,13 +24,3 @@ const Layout = ({ children, backgroundSource }: LayoutProps) => {
 };
 
 export default Layout;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 19,
-  },
-  image: {
-    flex: 1,
-  },
-});

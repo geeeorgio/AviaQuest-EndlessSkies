@@ -1,0 +1,90 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { MAX_FUEL } from 'src/constants/gameplay';
+import type { PlayerState } from 'src/types/player/player';
+
+const initialState: PlayerState = {
+  isGameMode: false,
+  purchasedVehiclesIdList: ['plane-primary'],
+  selectedVehicleId: 'plane-primary',
+  totalRings: 0,
+  gamePlay: {
+    isPlaying: false,
+    isPaused: false,
+    isOver: false,
+    fuel: MAX_FUEL,
+    sessionRings: 0,
+  },
+};
+
+const slice = createSlice({
+  name: 'player',
+  initialState,
+  reducers: {
+    exitGame: (state) => {
+      state.isGameMode = false;
+      state.gamePlay = {
+        isPlaying: false,
+        isPaused: false,
+        isOver: false,
+        fuel: MAX_FUEL,
+        sessionRings: 0,
+      };
+    },
+    startGame: (state) => {
+      state.isGameMode = true;
+      state.gamePlay.isPlaying = true;
+      state.gamePlay.isOver = false;
+      state.gamePlay.isPaused = false;
+    },
+    pauseGame: (state) => {
+      state.gamePlay.isPlaying = false;
+      state.gamePlay.isPaused = true;
+    },
+    resumeGame: (state) => {
+      state.gamePlay.isPlaying = true;
+      state.gamePlay.isPaused = false;
+    },
+    gameOver: (state) => {
+      state.gamePlay.isPlaying = false;
+      state.gamePlay.isOver = true;
+      state.gamePlay.isPaused = false;
+    },
+    restartGame: (state) => {
+      state.gamePlay = {
+        isPlaying: true,
+        isPaused: false,
+        isOver: false,
+        fuel: MAX_FUEL,
+        sessionRings: 0,
+      };
+    },
+    addRings: (state, action: PayloadAction<number>) => {
+      state.totalRings += action.payload;
+    },
+    decreaseFuel: (state, action: PayloadAction<number>) => {
+      state.gamePlay.fuel = Math.max(0, state.gamePlay.fuel - action.payload);
+    },
+    addFuel: (state, action: PayloadAction<number>) => {
+      state.gamePlay.fuel = Math.min(
+        MAX_FUEL,
+        state.gamePlay.fuel + action.payload,
+      );
+    },
+  },
+});
+
+export const {
+  exitGame,
+  startGame,
+  pauseGame,
+  resumeGame,
+  gameOver,
+  restartGame,
+  addRings,
+  decreaseFuel,
+  addFuel,
+} = slice.actions;
+
+export const playerReducer = slice.reducer;
