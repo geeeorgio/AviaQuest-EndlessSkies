@@ -9,6 +9,8 @@ export type MainStackParamsList = {
   InventoryScreen: undefined;
 };
 
+export type MainScreenName = keyof MainStackParamsList;
+
 export type MainStackNavigationProp = NativeStackNavigationProp<
   MainStackParamsList,
   'HomeScreen'

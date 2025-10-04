@@ -11,6 +11,7 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
+import { loadingReducer } from './slices/loadingStatus/slice';
 import { onboardingReducer } from './slices/onboarding/slice';
 import { playerReducer } from './slices/player/slice';
 import { settingsReducer } from './slices/settings/slice';
@@ -50,6 +51,7 @@ const store = configureStore({
     player: persistedPlayerReducer,
     onboarding: persistedOnboardingReducer,
     settings: persistedSettingsReducer,
+    loading: loadingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

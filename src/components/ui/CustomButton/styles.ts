@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   btn: {
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 20,
   },
   btnPressed: {
     opacity: 0.8,
@@ -13,12 +14,11 @@ export const styles = StyleSheet.create({
   btnDisabled: {
     opacity: 0.5,
   },
+  white: { backgroundColor: COLORS.White },
   prime: {
     backgroundColor: COLORS.Primary,
-    borderRadius: 20,
   },
   secondary: {
     backgroundColor: COLORS.Secondary,
-    borderRadius: 20,
   },
 });

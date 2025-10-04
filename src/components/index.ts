@@ -9,6 +9,7 @@ import HomeHeader from './ui/HomeComponents/HomeHeader/HomeHeader';
 import HomeLogo from './ui/HomeComponents/HomeLogo/HomeLogo';
 import HomeMenu from './ui/HomeComponents/HomeMenu/HomeMenu';
 import { List, ListItem } from './ui/ItemsList';
+import CustomHeader from './ui/MainNavigationHeaderComponents/CustomHeader';
 import ProgressSlider from './ui/ProgressSlider/ProgressSlider';
 import ScreenWrapper from './ui/ScreenWrapper/ScreenWrapper';
 import ToggleSwitch from './ui/ToggleSwitch/ToggleSwitch';
@@ -28,5 +29,6 @@ export {
   CustomContainer,
   CustomButton,
   CustomText,
+  CustomHeader,
   ScreenWrapper,
 };

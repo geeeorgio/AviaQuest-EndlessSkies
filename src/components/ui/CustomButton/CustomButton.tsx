@@ -7,13 +7,19 @@ import { styles } from './styles';
 
 interface CustomButtonProps {
   children: ReactNode;
-  handlePress: () => void;
+  handlePress?: () => void;
   isDisabled?: boolean;
   distance?: Insets;
-  variant?: 'primary' | 'secondary';
+  variant?: 'white' | 'primary' | 'secondary';
   fullWidth?: boolean;
   extraStyle?: StyleProp<ViewStyle>;
 }
+
+const variantStyles = {
+  white: styles.white,
+  primary: styles.prime,
+  secondary: styles.secondary,
+};
 
 const CustomButton = ({
   children,
@@ -31,7 +37,7 @@ const CustomButton = ({
         extraStyle,
         pressed && styles.btnPressed,
         isDisabled && styles.btnDisabled,
-        variant === 'primary' ? styles.prime : styles.secondary,
+        variantStyles[variant],
         fullWidth && { alignSelf: 'stretch' },
       ]}
       onPress={handlePress}

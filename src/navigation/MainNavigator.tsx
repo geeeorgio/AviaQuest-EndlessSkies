@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { CustomHeader } from 'src/components';
 import {
   GameScreen,
   HomeScreen,
@@ -21,14 +22,48 @@ const MainNavigator = () => {
         contentStyle: {
           backgroundColor: 'transparent',
         },
+        gestureEnabled: false,
+        animation: 'fade',
       }}
     >
       <Main.Screen name="HomeScreen" component={HomeScreen} />
-      <Main.Screen name="RulesScreen" component={RulesScreen} />
-      <Main.Screen name="SettingsScreen" component={SettingsScreen} />
       <Main.Screen name="GameScreen" component={GameScreen} />
-      <Main.Screen name="ShopScreen" component={ShopScreen} />
-      <Main.Screen name="InventoryScreen" component={InventoryScreen} />
+      <Main.Screen
+        name="RulesScreen"
+        component={RulesScreen}
+        options={{
+          headerShown: true,
+          title: 'Rules',
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      />
+      <Main.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{
+          headerShown: true,
+          title: 'Settings',
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      />
+      <Main.Screen
+        name="ShopScreen"
+        component={ShopScreen}
+        options={{
+          headerShown: true,
+          title: 'Shop',
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      />
+      <Main.Screen
+        name="InventoryScreen"
+        component={InventoryScreen}
+        options={{
+          headerShown: true,
+          title: 'Inventory',
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      />
     </Main.Navigator>
   );
 };
