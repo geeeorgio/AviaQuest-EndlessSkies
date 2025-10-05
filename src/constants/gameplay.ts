@@ -1,1 +1,9 @@
 export const MAX_FUEL = 100;
+export const PLANE_SIZE = { width: 50, height: 50 };
+export const GRAVITY = 0.8;
+export const LIFT = 15;
+export const MAX_VELOCITY = 15;
+export const BACKGROUND_SPEED = 5;
+export const OBSTACLE_SPEED = 7;
+export const COLLISION_VIBRATION_DURATION = 100;
+export const OBSTACLE_INTERVAL = 1500;

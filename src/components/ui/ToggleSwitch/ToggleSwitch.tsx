@@ -8,10 +8,20 @@ import { styles } from './styles';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
 import { selectVibration } from 'src/redux/slices/settings/selectors';
 import { toggleVibration } from 'src/redux/slices/settings/slice';
+import { triggerVibration } from 'src/utils/vibration';
 
 const ToggleSwitch = () => {
   const dispatch = useAppDispatch();
   const vibrationEnabled = useAppSelector(selectVibration);
+
+  const handleVibrationOn = () => {
+    dispatch(toggleVibration());
+    triggerVibration('on');
+  };
+
+  const handleVibrationOff = () => {
+    dispatch(toggleVibration());
+  };
 
   return (
     <View style={styles.mainWrapper}>
@@ -21,7 +31,7 @@ const ToggleSwitch = () => {
         <Pressable
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={[styles.circle, !vibrationEnabled && styles.active]}
-          onPress={() => dispatch(toggleVibration())}
+          onPress={handleVibrationOff}
         ></Pressable>
         <CustomText extraStyle={styles.option}>OFF</CustomText>
       </View>
@@ -30,7 +40,7 @@ const ToggleSwitch = () => {
         <Pressable
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={[styles.circle, vibrationEnabled && styles.active]}
-          onPress={() => dispatch(toggleVibration())}
+          onPress={handleVibrationOn}
         ></Pressable>
         <CustomText extraStyle={styles.option}>ON</CustomText>
       </View>

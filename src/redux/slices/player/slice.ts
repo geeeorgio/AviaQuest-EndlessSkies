@@ -1,7 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import { VEHICLES } from 'src/constants';
 import { MAX_FUEL } from 'src/constants/gameplay';
+import type { VehicleId } from 'src/types/game/vehicles';
 import type { PlayerState } from 'src/types/player/player';
 
 const initialState: PlayerState = {
@@ -72,6 +74,31 @@ const slice = createSlice({
         state.gamePlay.fuel + action.payload,
       );
     },
+    purchaseVehicle: (state, action: PayloadAction<VehicleId>) => {
+      const vehicleId = action.payload;
+      const vehicle = VEHICLES.find((v) => v.id === vehicleId);
+
+      if (
+        vehicle &&
+        !state.purchasedVehiclesIdList.includes(vehicleId) &&
+        state.totalRings >= vehicle.price
+      ) {
+        state.totalRings -= vehicle.price;
+        state.purchasedVehiclesIdList.push(vehicleId);
+      }
+    },
+    selectVehicle: (state, action: PayloadAction<VehicleId>) => {
+      if (state.purchasedVehiclesIdList.includes(action.payload)) {
+        state.selectedVehicleId = action.payload;
+      }
+    },
+    deleteVehicle: (state, action: PayloadAction<VehicleId>) => {
+      const vehicleToDelete = action.payload;
+
+      state.purchasedVehiclesIdList = state.purchasedVehiclesIdList.filter(
+        (vehicleId) => vehicleId !== vehicleToDelete,
+      );
+    },
   },
 });
 
@@ -85,6 +112,9 @@ export const {
   addRings,
   decreaseFuel,
   addFuel,
+  purchaseVehicle,
+  selectVehicle,
+  deleteVehicle,
 } = slice.actions;
 
 export const playerReducer = slice.reducer;

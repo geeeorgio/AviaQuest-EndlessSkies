@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const PlayerPlane = () => {
+const GameScene = () => {
   return (
     <View>
-      <Text>PlayerPlane</Text>
+      <Text>GameScene</Text>
     </View>
   )
 }
 
-export default PlayerPlane
+export default GameScene
 
 const styles = StyleSheet.create({})

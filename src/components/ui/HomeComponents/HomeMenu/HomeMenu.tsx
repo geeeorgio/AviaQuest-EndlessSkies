@@ -7,17 +7,25 @@ import CustomText from '../../CustomText/CustomText';
 
 import { styles } from './styles';
 
+import { useAppDispatch } from 'src/hooks/toolkit';
+import { startGame } from 'src/redux/slices/player/slice';
 import type { MainStackNavigationProp } from 'src/types/navigation/main';
 
 const HomeMenu = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<MainStackNavigationProp>();
+
+  const handleStartGame = () => {
+    dispatch(startGame());
+    navigation.navigate('GameScreen');
+  };
 
   return (
     <View style={styles.menuButtons}>
       <View style={styles.row}>
         <CustomButton
           extraStyle={[styles.btn, { flex: 1.5 }]}
-          handlePress={() => navigation.navigate('GameScreen')}
+          handlePress={handleStartGame}
         >
           <CustomText extraStyle={styles.buttonText}>START PLAY</CustomText>
         </CustomButton>

@@ -1,8 +1,11 @@
 import CustomButton from './ui/CustomButton/CustomButton';
 import CustomContainer from './ui/CustomContainer/CustomContainer';
 import CustomText from './ui/CustomText/CustomText';
-import FuelIndicator from './ui/FuelIndicator/FuelIndicator';
-import GameAsset from './ui/GameScene/GameAsset/GameAsset';
+import GameOverModal from './ui/GameScene/GameOverModal/GameoverModal';
+import GameScene from './ui/GameScene/GameScene';
+import HeadUpDisplay from './ui/GameScene/HeadUpDisplay/HeadUpDisplay';
+import ObstacleContainer from './ui/GameScene/ObstacleContainer/ObstacleContainer';
+import PauseModal from './ui/GameScene/PauseModal/PauseModal';
 import PlayerPlane from './ui/GameScene/PlayerPlane/PlayerPlane';
 import ScrollingBackground from './ui/GameScene/ScrollingBackground/ScrollingBackground';
 import HomeHeader from './ui/HomeComponents/HomeHeader/HomeHeader';
@@ -15,8 +18,6 @@ import ScreenWrapper from './ui/ScreenWrapper/ScreenWrapper';
 import ToggleSwitch from './ui/ToggleSwitch/ToggleSwitch';
 
 export {
-  FuelIndicator,
-  GameAsset,
   PlayerPlane,
   ScrollingBackground,
   ListItem,
@@ -31,4 +32,9 @@ export {
   CustomText,
   CustomHeader,
   ScreenWrapper,
+  HeadUpDisplay,
+  PauseModal,
+  GameScene,
+  GameOverModal,
+  ObstacleContainer,
 };
