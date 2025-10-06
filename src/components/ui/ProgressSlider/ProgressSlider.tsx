@@ -1,5 +1,5 @@
 import Slider from '@react-native-community/slider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import { useWindowDimensions, View } from 'react-native';
 
@@ -21,13 +21,26 @@ const ProgressSlider = () => {
   const [trackWidth, setTrackWidth] = useState(windowWidth * 0.9);
 
   const [currentValue, setCurrentValue] = useState(sensitivityLevel);
+  const [isSliding, setIsSliding] = useState(false);
+
+  useEffect(() => {
+    if (!isSliding && currentValue !== sensitivityLevel) {
+      setCurrentValue(sensitivityLevel);
+    }
+  }, [sensitivityLevel, isSliding, currentValue]);
+
+  const handleSlidingStart = () => {
+    setIsSliding(true);
+  };
 
   const handleValueChange = (value: number) => {
+    if (!isSliding) setIsSliding(true);
     setCurrentValue(Math.round(value));
   };
 
   const handleSensitivityLevel = (value: number) => {
     dispatch(setSensitivity(Math.round(value)));
+    setIsSliding(false);
   };
 
   const onLayout = (e: LayoutChangeEvent) => {
@@ -64,6 +77,7 @@ const ProgressSlider = () => {
           maximumValue={100}
           step={1}
           value={currentValue}
+          onSlidingStart={handleSlidingStart}
           onValueChange={handleValueChange}
           onSlidingComplete={handleSensitivityLevel}
           minimumTrackTintColor={'transparent'}

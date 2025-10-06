@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Image } from 'react-native';
 
@@ -10,14 +10,43 @@ import { styles } from './styles';
 
 import { OBSTACKLES } from 'src/constants';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
-import { selectSessionRings } from 'src/redux/slices/player/selectors';
+import {
+  selectCurrentVehicle,
+  selectGameOverReason,
+  selectSessionRings,
+} from 'src/redux/slices/player/selectors';
 import { restartGame, exitGame } from 'src/redux/slices/player/slice';
 import type { MainStackNavigationProp } from 'src/types/navigation/main';
+import type { GameOverReason } from 'src/types/player/player';
+import { handleShare } from 'src/utils/hadleShare';
 
 const GameOverModal = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<MainStackNavigationProp>();
   const finalRings = useAppSelector(selectSessionRings);
+  const reason = useAppSelector(selectGameOverReason);
+  const currentVehicle = useAppSelector(selectCurrentVehicle);
+  const vehicleName = currentVehicle?.name || 'Default Plane';
+
+  const getReasonContent = (r: GameOverReason) => {
+    switch (r) {
+      case 'Collision':
+        return {
+          text: 'YOU CAUGHT AN OBSTACLE!',
+        };
+      case 'FuelOut':
+        return {
+          text: 'OUT OF FUEL',
+          icon: OBSTACKLES.FuelCan,
+        };
+      default:
+        return {
+          text: 'GAME OVER',
+        };
+    }
+  };
+
+  const content = getReasonContent(reason);
 
   const handleRestart = () => {
     dispatch(restartGame());
@@ -25,40 +54,81 @@ const GameOverModal = () => {
 
   const handleGoToMenu = () => {
     dispatch(exitGame());
-    navigation.navigate('HomeScreen');
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      }),
+    );
+  };
+
+  const onShare = () => {
+    handleShare(finalRings, vehicleName);
   };
 
   return (
     <View style={styles.overlay}>
-      <CustomContainer extraStyle={styles.modalContent}>
-        <CustomText extraStyle={styles.title}>GAME OVER</CustomText>
+      <CustomContainer extraStyle={styles.headerContainer}>
+        <CustomText extraStyle={styles.headerTitle}>GAME OVER</CustomText>
+      </CustomContainer>
 
-        <View style={styles.scoreContainer}>
-          <CustomText extraStyle={styles.scoreLabel}>
-            RINGS COLLECTED:
+      <CustomContainer extraStyle={styles.modalContent}>
+        <View style={styles.reasonContainer}>
+          {content.text === 'OUT OF FUEL' && (
+            <Image
+              source={content.icon}
+              style={styles.reasonIcon}
+              resizeMode="contain"
+            />
+          )}
+          <CustomText
+            extraStyle={[
+              content.text === 'OUT OF FUEL' && { fontSize: 32 },
+              styles.reasonText,
+            ]}
+          >
+            {content.text}
           </CustomText>
-          <CustomText extraStyle={styles.scoreValue}>{finalRings}</CustomText>
+          {content.text === 'OUT OF FUEL' && (
+            <Image
+              source={content.icon}
+              style={styles.reasonIcon}
+              resizeMode="contain"
+            />
+          )}
         </View>
 
         <View style={styles.ringsContainer}>
-          <Image
-            source={OBSTACKLES.Ring}
-            style={styles.ringIcon}
-            resizeMode="contain"
-          />
-          <CustomText extraStyle={styles.ringsValue}>{finalRings}</CustomText>
+          <CustomText extraStyle={styles.ringsLabel}>
+            RINGS COLLECTED:
+          </CustomText>
+          <CustomContainer extraStyle={styles.collected}>
+            <Image
+              source={OBSTACKLES.Ring}
+              style={styles.ringIcon}
+              resizeMode="contain"
+            />
+            <CustomText extraStyle={styles.ringsValue}>{finalRings}</CustomText>
+          </CustomContainer>
         </View>
 
-        <CustomButton handlePress={handleRestart} extraStyle={styles.button}>
-          <CustomText extraStyle={styles.buttonText}>RESTART</CustomText>
-        </CustomButton>
+        <View style={styles.btnContainer}>
+          <CustomButton handlePress={handleRestart} extraStyle={styles.button}>
+            <CustomText extraStyle={styles.buttonText}>Try again</CustomText>
+          </CustomButton>
 
-        <CustomButton
-          handlePress={handleGoToMenu}
-          extraStyle={[styles.button, styles.menuButton]}
-        >
-          <CustomText extraStyle={styles.buttonText}>MAIN MENU</CustomText>
-        </CustomButton>
+          <CustomButton handlePress={handleGoToMenu} extraStyle={styles.button}>
+            <CustomText extraStyle={styles.buttonText}>Back home</CustomText>
+          </CustomButton>
+
+          <CustomButton
+            handlePress={onShare}
+            extraStyle={[styles.button, styles.shareButton]}
+          >
+            <CustomText extraStyle={styles.buttonText}>Share</CustomText>
+          </CustomButton>
+        </View>
       </CustomContainer>
     </View>
   );

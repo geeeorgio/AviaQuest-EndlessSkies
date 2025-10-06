@@ -7,4 +7,8 @@ export const styles = StyleSheet.create({
   image: {
     flex: 1,
   },
+  transparentContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
 });

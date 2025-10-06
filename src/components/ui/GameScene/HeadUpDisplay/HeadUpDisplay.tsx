@@ -21,7 +21,6 @@ const HeadUpDisplay = () => {
   const currentFuel = useAppSelector(selectFuel);
 
   const fuelPercentage = (currentFuel / MAX_FUEL) * 100;
-
   let fuelColor = COLORS.FuelFull;
   if (fuelPercentage <= 50) fuelColor = COLORS.FuelMid;
   if (fuelPercentage <= 20) fuelColor = COLORS.FuelLow;
@@ -32,34 +31,44 @@ const HeadUpDisplay = () => {
 
   return (
     <View style={styles.container}>
-      <CustomContainer extraStyle={styles.topBar}>
-        <CustomButton extraStyle={styles.pauseButton} handlePress={handlePause}>
+      <View style={styles.topBar}>
+        <CustomButton
+          extraStyle={styles.pauseButton}
+          variant="white"
+          handlePress={handlePause}
+        >
           <CustomText extraStyle={styles.pauseText}>||</CustomText>
         </CustomButton>
 
         <CustomText extraStyle={styles.recordText}>10M</CustomText>
-      </CustomContainer>
+      </View>
 
-      <View style={styles.bottomBar}>
-        <View style={styles.ringsCollected}>
-          <CustomText>RINGS COLLECTED: </CustomText>
+      <CustomContainer extraStyle={styles.bottomBarWrapper}>
+        <View style={styles.ringsCollectedLine}>
+          <CustomText>RINGS COLLECTED:</CustomText>
 
-          <Image style={styles.ringIcon} source={OBSTACKLES.Ring} />
-          <CustomText extraStyle={styles.ringsCount}>{sessionRings}</CustomText>
+          <CustomContainer extraStyle={styles.ringsCountContainer}>
+            <Image style={styles.ringIcon} source={OBSTACKLES.Ring} />
+
+            <CustomText extraStyle={styles.ringsCountText}>
+              {sessionRings}
+            </CustomText>
+          </CustomContainer>
         </View>
 
         <View style={styles.fuelContainer}>
           <CustomText>FUEL RESERVE:</CustomText>
-          <View style={styles.fuelBarWrapper}>
+
+          <CustomContainer extraStyle={styles.fuelBarWrapper}>
             <View
               style={[
                 styles.fuelBar,
                 { width: `${fuelPercentage}%`, backgroundColor: fuelColor },
               ]}
             />
-          </View>
+          </CustomContainer>
         </View>
-      </View>
+      </CustomContainer>
     </View>
   );
 };

@@ -1,11 +1,15 @@
 import type { VehicleId } from '../game/vehicles';
 
+export type GameOverReason = 'None' | 'Collision' | 'FuelOut' | 'Boundary';
+
 export interface GamePlayState {
   isPlaying: boolean;
   isPaused: boolean;
   isOver: boolean;
   fuel: number;
   sessionRings: number;
+  gameOverReason: GameOverReason;
+  gameKey: number;
 }
 
 export interface PlayerState {

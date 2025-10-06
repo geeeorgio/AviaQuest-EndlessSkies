@@ -1,7 +1,9 @@
+import { BlurView } from '@react-native-community/blur';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
 
@@ -13,35 +15,62 @@ import {
 } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
 import {
+  selectGameKey,
   selectIsGameOver,
   selectIsGamePaused,
 } from 'src/redux/slices/player/selectors';
-import { startGame, exitGame } from 'src/redux/slices/player/slice';
+import { exitGame } from 'src/redux/slices/player/slice';
 
 const GameScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const gameKey = useAppSelector(selectGameKey);
+
+  const insets = useSafeAreaInsets();
 
   const isPaused = useAppSelector(selectIsGamePaused);
   const isGameOver = useAppSelector(selectIsGameOver);
+  const isGameActive = !isPaused && !isGameOver;
+  const isModalActive = isPaused || isGameOver;
 
   useEffect(() => {
-    dispatch(startGame());
     const unsubscribe = navigation.addListener('beforeRemove', () => {
       dispatch(exitGame());
     });
-
     return unsubscribe;
   }, [dispatch, navigation]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={styles.gameWorld}>{!isGameOver && <GameScene />}</View>
+        <View style={styles.gameWorld}>
+          <GameScene key={gameKey} />
 
-        {!isGameOver && <HeadUpDisplay />}
-        {isPaused && <PauseModal />}
-        {isGameOver && <GameOverModal />}
+          {isModalActive && (
+            <BlurView
+              style={StyleSheet.absoluteFill}
+              blurType="dark"
+              blurAmount={5}
+              reducedTransparencyFallbackColor="black"
+            />
+          )}
+        </View>
+
+        <View
+          style={[
+            styles.overlayContainer,
+            {
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom,
+              paddingLeft: insets.left,
+              paddingRight: insets.right,
+            },
+          ]}
+        >
+          {isGameActive && <HeadUpDisplay />}
+          {isPaused && <PauseModal />}
+          {isGameOver && <GameOverModal />}
+        </View>
       </View>
     </GestureHandlerRootView>
   );

@@ -10,3 +10,12 @@ export interface ObstacleData {
   source: ImageSourcePropType;
   size: { width: number; height: number };
 }
+
+export type SpawnedObstacle = {
+  id: number;
+  type: 'Bird' | 'Drone' | 'FuelCan' | 'Ring';
+  y: number;
+  width: number;
+  height: number;
+  source: any;
+};

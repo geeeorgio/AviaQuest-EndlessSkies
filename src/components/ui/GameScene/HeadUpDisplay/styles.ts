@@ -1,67 +1,94 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from 'src/constants';
+import { COLORS, FONTS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     zIndex: 10,
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    paddingTop: 40,
   },
-
   topBar: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 10,
   },
   pauseButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: COLORS.Primary,
+    alignItems: 'center',
+    backgroundColor: COLORS.White,
   },
   pauseText: {
-    fontSize: 20,
-    color: COLORS.White,
+    fontSize: 28,
+    color: COLORS.Primary,
     textAlign: 'center',
   },
   recordText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: FONTS.NunitoExtra,
     color: COLORS.White,
   },
-
-  bottomBar: {
+  bottomBarWrapper: {
     marginBottom: 20,
     backgroundColor: COLORS.White,
     borderRadius: 8,
-    padding: 10,
+    padding: 15,
+    borderWidth: 2,
+    borderColor: COLORS.Primary,
   },
-  ringsCollected: {
+  ringsCollectedLine: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+
+  ringsCountContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: COLORS.Primary,
+    backgroundColor: COLORS.White,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
   },
   ringIcon: {
-    width: 16,
-    height: 16,
-    marginHorizontal: 4,
+    width: 20,
+    height: 20,
+    marginRight: 4,
   },
-  ringsCount: {
-    fontWeight: 'bold',
+  ringsCountText: {
+    fontSize: 18,
+    fontFamily: FONTS.NunitoExtra,
+    color: COLORS.Black,
   },
   fuelContainer: {
-    marginTop: 5,
+    marginTop: 0,
   },
   fuelBarWrapper: {
-    height: 20,
-    backgroundColor: COLORS.Red,
-    borderRadius: 5,
+    height: 25,
+    borderRadius: 8,
     overflow: 'hidden',
-    marginTop: 5,
+    marginTop: 8,
+    borderWidth: 2,
+    borderColor: COLORS.Primary,
+    backgroundColor: COLORS.White,
+    padding: 3,
   },
   fuelBar: {
     height: '100%',
+    borderRadius: 4,
   },
 });

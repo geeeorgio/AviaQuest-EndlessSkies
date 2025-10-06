@@ -45,3 +45,8 @@ export const selectIsGamePaused = (state: RootState) =>
 export const selectIsGameOver = (state: RootState) =>
   state.player.gamePlay.isOver;
 export const selectFuel = (state: RootState) => state.player.gamePlay.fuel;
+
+export const selectGameOverReason = (state: RootState) =>
+  state.player.gamePlay.gameOverReason;
+export const selectGameKey = (state: RootState) =>
+  state.player.gamePlay.gameKey;

@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
   backgroundWrapper: {
     height: '100%',
     flexDirection: 'row',
-    position: 'absolute',
   },
   image: {
     height: '100%',

@@ -5,6 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   gameWorld: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
+  },
+  overlayContainer: {
+    ...StyleSheet.absoluteFillObject,
   },
 });

@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { VEHICLES } from 'src/constants';
 import { MAX_FUEL } from 'src/constants/gameplay';
 import type { VehicleId } from 'src/types/game/vehicles';
-import type { PlayerState } from 'src/types/player/player';
+import type { GameOverReason, PlayerState } from 'src/types/player/player';
 
 const initialState: PlayerState = {
   isGameMode: false,
@@ -17,6 +17,8 @@ const initialState: PlayerState = {
     isOver: false,
     fuel: MAX_FUEL,
     sessionRings: 0,
+    gameOverReason: 'None',
+    gameKey: 1,
   },
 };
 
@@ -32,6 +34,8 @@ const slice = createSlice({
         isOver: false,
         fuel: MAX_FUEL,
         sessionRings: 0,
+        gameOverReason: 'None',
+        gameKey: 1,
       };
     },
     startGame: (state) => {
@@ -48,10 +52,11 @@ const slice = createSlice({
       state.gamePlay.isPlaying = true;
       state.gamePlay.isPaused = false;
     },
-    gameOver: (state) => {
+    gameOver: (state, action: PayloadAction<GameOverReason>) => {
       state.gamePlay.isPlaying = false;
       state.gamePlay.isOver = true;
       state.gamePlay.isPaused = false;
+      state.gamePlay.gameOverReason = action.payload;
     },
     restartGame: (state) => {
       state.gamePlay = {
@@ -60,6 +65,8 @@ const slice = createSlice({
         isOver: false,
         fuel: MAX_FUEL,
         sessionRings: 0,
+        gameOverReason: 'None',
+        gameKey: state.gamePlay.gameKey + 1,
       };
     },
     addRings: (state, action: PayloadAction<number>) => {

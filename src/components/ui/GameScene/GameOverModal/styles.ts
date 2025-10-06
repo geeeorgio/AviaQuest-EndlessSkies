@@ -4,48 +4,56 @@ import { COLORS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 20,
+    paddingTop: 80,
   },
-  modalContent: {
-    width: '80%',
-    padding: 30,
-    borderRadius: 15,
-    backgroundColor: COLORS.White,
+  headerContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: COLORS.Red,
+    justifyContent: 'center',
+    width: '70%',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     marginBottom: 20,
   },
-  scoreContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.Primary,
-    width: '100%',
-  },
-  scoreLabel: {
-    fontSize: 16,
+  headerTitle: {
+    fontSize: 36,
     color: COLORS.Black,
-    marginBottom: 5,
   },
-  scoreValue: {
-    fontSize: 30,
-    fontWeight: '900',
-    color: COLORS.Red,
+  modalContent: {
+    width: '95%',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    alignItems: 'center',
+  },
+  reasonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  reasonIcon: {
+    width: 44,
+    height: 44,
+    marginRight: 8,
+  },
+  reasonText: {
+    fontSize: 24,
+    color: COLORS.Black,
   },
   ringsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 30,
-    marginTop: 10,
+    justifyContent: 'center',
+    gap: 5,
+    marginVertical: 15,
+  },
+  ringsLabel: {
+    fontSize: 20,
+    color: COLORS.Black,
   },
   ringIcon: {
     width: 24,
@@ -53,23 +61,22 @@ export const styles = StyleSheet.create({
     marginRight: 8,
   },
   ringsValue: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: COLORS.Secondary,
+    fontSize: 15,
+    color: COLORS.Black,
   },
+  collected: { flexDirection: 'row' },
+  btnContainer: { width: '100%', paddingHorizontal: 50 },
   button: {
     width: '100%',
-    paddingVertical: 12,
-    marginTop: 15,
-    borderRadius: 10,
+    paddingVertical: 22,
+    marginVertical: 8,
     backgroundColor: COLORS.Primary,
   },
-  menuButton: {
+  shareButton: {
     backgroundColor: COLORS.Secondary,
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: COLORS.White,
     textAlign: 'center',
   },
