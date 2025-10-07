@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS, FONTS } from 'src/constants';
+import { COLORS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   overlay: {
@@ -8,85 +8,74 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     zIndex: 20,
-    paddingTop: 100,
+  },
+  headerWrapper: {
+    width: '80%',
+    marginBottom: 20,
+    paddingTop: 130,
   },
   headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%',
+    width: '100%',
     paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 12,
-    marginBottom: 20,
-    backgroundColor: COLORS.White,
-    borderWidth: 3,
-    borderColor: COLORS.Primary,
   },
-  headerIcon: {
-    width: 60,
-    height: 30,
-    marginRight: 10,
+  headerIconsOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
+  planeIcon: {
+    width: 126,
+    height: 70,
+  },
+  fuelIcon: { width: 98, height: 98 },
   headerTitle: {
-    fontSize: 28,
-    fontFamily: FONTS.NunitoExtra,
+    fontSize: 36,
     color: COLORS.Black,
   },
   modalContent: {
-    width: '95%',
-    backgroundColor: COLORS.White,
-    borderRadius: 15,
-    padding: 30,
+    width: '96%',
+    maxWidth: 400,
+    paddingVertical: 30,
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: COLORS.Primary,
+  },
+  ringsTexts: {
+    fontSize: 20,
+    marginBottom: 13,
   },
   ringsInfo: {
-    marginBottom: 40,
+    marginBottom: 32,
     alignItems: 'center',
   },
   ringsCountContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: COLORS.Primary,
-    backgroundColor: COLORS.White,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginTop: 15,
+    gap: 10,
   },
   ringIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 6,
+    width: 38,
+    height: 38,
   },
   ringsValueText: {
-    fontSize: 24,
-    color: COLORS.Black,
-    fontFamily: FONTS.NunitoExtra,
+    fontSize: 15,
   },
   btnContainer: {
     width: '100%',
+    paddingHorizontal: 77,
+    alignItems: 'center',
+    gap: 15,
   },
   button: {
     width: '100%',
-    paddingVertical: 20,
-    marginVertical: 8,
-    borderRadius: 12,
+    paddingVertical: 22,
+    borderRadius: 20,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 24,
     color: COLORS.White,
-    fontWeight: 'bold',
-    fontFamily: FONTS.NunitoExtra,
     textAlign: 'center',
   },
-  continueButton: {
-    backgroundColor: COLORS.Primary,
-  },
-  backHomeButton: {
-    backgroundColor: COLORS.Primary,
-  },
+  continueButton: {},
+  backHomeButton: {},
 });

@@ -11,6 +11,7 @@ const initialState: PlayerState = {
   purchasedVehiclesIdList: ['plane-primary'],
   selectedVehicleId: 'plane-primary',
   totalRings: 0,
+  maxDistance: 0,
   gamePlay: {
     isPlaying: false,
     isPaused: false,
@@ -19,6 +20,7 @@ const initialState: PlayerState = {
     sessionRings: 0,
     gameOverReason: 'None',
     gameKey: 1,
+    distance: 0,
   },
 };
 
@@ -36,6 +38,7 @@ const slice = createSlice({
         sessionRings: 0,
         gameOverReason: 'None',
         gameKey: 1,
+        distance: 0,
       };
     },
     startGame: (state) => {
@@ -57,6 +60,11 @@ const slice = createSlice({
       state.gamePlay.isOver = true;
       state.gamePlay.isPaused = false;
       state.gamePlay.gameOverReason = action.payload;
+      state.totalRings += state.gamePlay.sessionRings;
+
+      if (state.gamePlay.distance > state.maxDistance) {
+        state.maxDistance = state.gamePlay.distance;
+      }
     },
     restartGame: (state) => {
       state.gamePlay = {
@@ -67,10 +75,11 @@ const slice = createSlice({
         sessionRings: 0,
         gameOverReason: 'None',
         gameKey: state.gamePlay.gameKey + 1,
+        distance: 0,
       };
     },
-    addRings: (state, action: PayloadAction<number>) => {
-      state.totalRings += action.payload;
+    addSessionRings: (state, action: PayloadAction<number>) => {
+      state.gamePlay.sessionRings += action.payload;
     },
     decreaseFuel: (state, action: PayloadAction<number>) => {
       state.gamePlay.fuel = Math.max(0, state.gamePlay.fuel - action.payload);
@@ -106,6 +115,12 @@ const slice = createSlice({
         (vehicleId) => vehicleId !== vehicleToDelete,
       );
     },
+    incrementDistance: (state, action: PayloadAction<number>) => {
+      state.gamePlay.distance += action.payload;
+    },
+    resetDistance: (state) => {
+      state.gamePlay.distance = 0;
+    },
   },
 });
 
@@ -116,12 +131,14 @@ export const {
   resumeGame,
   gameOver,
   restartGame,
-  addRings,
+  addSessionRings,
   decreaseFuel,
   addFuel,
   purchaseVehicle,
   selectVehicle,
   deleteVehicle,
+  incrementDistance,
+  resetDistance,
 } = slice.actions;
 
 export const playerReducer = slice.reducer;

@@ -17,7 +17,7 @@ import {
 } from 'src/redux/slices/player/selectors';
 import { restartGame, exitGame } from 'src/redux/slices/player/slice';
 import type { MainStackNavigationProp } from 'src/types/navigation/main';
-import type { GameOverReason } from 'src/types/player/player';
+import { getReasonContent } from 'src/utils/getReasonContent';
 import { handleShare } from 'src/utils/hadleShare';
 
 const GameOverModal = () => {
@@ -28,24 +28,6 @@ const GameOverModal = () => {
   const currentVehicle = useAppSelector(selectCurrentVehicle);
   const vehicleName = currentVehicle?.name || 'Default Plane';
 
-  const getReasonContent = (r: GameOverReason) => {
-    switch (r) {
-      case 'Collision':
-        return {
-          text: 'YOU CAUGHT AN OBSTACLE!',
-        };
-      case 'FuelOut':
-        return {
-          text: 'OUT OF FUEL',
-          icon: OBSTACKLES.FuelCan,
-        };
-      default:
-        return {
-          text: 'GAME OVER',
-        };
-    }
-  };
-
   const content = getReasonContent(reason);
 
   const handleRestart = () => {
@@ -54,7 +36,6 @@ const GameOverModal = () => {
 
   const handleGoToMenu = () => {
     dispatch(exitGame());
-
     navigation.dispatch(
       CommonActions.reset({
         index: 0,

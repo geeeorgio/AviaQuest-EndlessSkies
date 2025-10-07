@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 20,
-    paddingTop: 80,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -24,8 +23,8 @@ export const styles = StyleSheet.create({
     color: COLORS.Black,
   },
   modalContent: {
-    width: '95%',
-    paddingHorizontal: 20,
+    width: '96%',
+    maxWidth: 400,
     paddingVertical: 30,
     alignItems: 'center',
   },
@@ -33,7 +32,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
   },
   reasonIcon: {
     width: 44,
@@ -43,40 +41,42 @@ export const styles = StyleSheet.create({
   reasonText: {
     fontSize: 24,
     color: COLORS.Black,
+    textAlign: 'center',
   },
   ringsContainer: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
+    justifyContent: 'space-around',
     marginVertical: 15,
   },
   ringsLabel: {
     fontSize: 20,
     color: COLORS.Black,
   },
+  collected: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
   ringIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 8,
+    width: 38,
+    height: 38,
   },
   ringsValue: {
     fontSize: 15,
     color: COLORS.Black,
   },
-  collected: { flexDirection: 'row' },
   btnContainer: { width: '100%', paddingHorizontal: 50 },
   button: {
     width: '100%',
     paddingVertical: 22,
     marginVertical: 8,
-    backgroundColor: COLORS.Primary,
   },
-  shareButton: {
-    backgroundColor: COLORS.Secondary,
-  },
+  shareButton: {},
   buttonText: {
-    fontSize: 18,
+    fontSize: 24,
     color: COLORS.White,
     textAlign: 'center',
   },

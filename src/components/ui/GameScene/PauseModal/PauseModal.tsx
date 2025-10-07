@@ -8,7 +8,8 @@ import CustomText from '../../CustomText/CustomText';
 
 import { styles } from './styles';
 
-import { OBSTACKLES, VEHICLES } from 'src/constants';
+import { OBSTACKLES } from 'src/constants';
+import { pausePlane } from 'src/constants/vehicles';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
 import { selectSessionRings } from 'src/redux/slices/player/selectors';
 import { resumeGame, exitGame } from 'src/redux/slices/player/slice';
@@ -28,23 +29,35 @@ const PauseModal = () => {
     navigation.navigate('HomeScreen');
   };
 
-  const vehicleImage =
-    VEHICLES.find((v) => v.id === 'plane-primary')?.image || VEHICLES[0].image;
+  const vehicleImage = pausePlane;
+  const fuelCanImage = OBSTACKLES.FuelCan;
 
   return (
     <View style={styles.overlay}>
-      <CustomContainer extraStyle={styles.headerContainer}>
-        <Image
-          source={vehicleImage}
-          style={styles.headerIcon}
-          resizeMode="contain"
-        />
-        <CustomText extraStyle={styles.headerTitle}>PAUSE</CustomText>
-      </CustomContainer>
+      <View style={styles.headerWrapper}>
+        <CustomContainer extraStyle={styles.headerContainer}>
+          <CustomText extraStyle={styles.headerTitle}>PAUSE</CustomText>
+        </CustomContainer>
+
+        <View style={styles.headerIconsOverlay}>
+          <Image
+            source={vehicleImage}
+            style={styles.planeIcon}
+            resizeMode="contain"
+          />
+          <Image
+            source={fuelCanImage}
+            style={styles.fuelIcon}
+            resizeMode="contain"
+          />
+        </View>
+      </View>
 
       <CustomContainer extraStyle={styles.modalContent}>
         <View style={styles.ringsInfo}>
-          <CustomText>RINGS COLLECTED:</CustomText>
+          <CustomText extraStyle={styles.ringsTexts}>
+            RINGS COLLECTED:
+          </CustomText>
 
           <CustomContainer extraStyle={styles.ringsCountContainer}>
             <Image

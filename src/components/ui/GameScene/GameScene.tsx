@@ -2,9 +2,8 @@ import React, { useEffect, useMemo, useCallback } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
+  useFrameCallback,
   useSharedValue,
-  withRepeat,
-  withTiming,
 } from 'react-native-reanimated';
 
 import { ObstacleContainer } from './ObstacleContainer/ObstacleContainer';
@@ -13,6 +12,7 @@ import ScrollingBackground from './ScrollingBackground/ScrollingBackground';
 
 import { BACKGROUND_SPEED, LIFT, PLANE_SIZE } from 'src/constants/gameplay';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
+import { useGameTicks } from 'src/hooks/useGameTicks';
 import { selectIsPlaying } from 'src/redux/slices/player/selectors';
 import { gameOver } from 'src/redux/slices/player/slice';
 import {
@@ -32,25 +32,27 @@ const GameScene = () => {
   const planeVelocity = useSharedValue(0);
   const isPressing = useSharedValue(0);
   const isPlaying = useSharedValue(false);
-  const backgroundX = useSharedValue(0);
+  const backgroundOffset = useSharedValue(0);
+
+  useGameTicks(isPlaying);
 
   useEffect(() => {
     isPlaying.value = !!isPlayingRedux;
   }, [isPlayingRedux, isPlaying]);
 
-  useEffect(() => {
-    const duration = (SCREEN_WIDTH / BACKGROUND_SPEED) * 1000;
+  useFrameCallback(() => {
+    'worklet';
+    if (!isPlaying.value) return;
 
-    if (isPlayingRedux) {
-      backgroundX.value = withRepeat(
-        withTiming(-SCREEN_WIDTH, { duration }),
-        -1,
-        false,
-      );
+    const pixelsToMove = BACKGROUND_SPEED * (1 / 60);
+    const newOffset = backgroundOffset.value - pixelsToMove;
+
+    if (newOffset <= -SCREEN_WIDTH) {
+      backgroundOffset.value = newOffset + SCREEN_WIDTH;
     } else {
-      backgroundX.value = backgroundX.value;
+      backgroundOffset.value = newOffset;
     }
-  }, [isPlayingRedux, backgroundX]);
+  });
 
   const onPlaneBoundaryHit = useCallback(() => {
     dispatch(gameOver('Boundary'));
@@ -80,14 +82,20 @@ const GameScene = () => {
   );
 
   const effectiveLift = useMemo(() => {
-    const mul = 0.5 + Math.min(100, Math.max(0, sensitivity)) * 0.015;
-    return LIFT * mul;
+    const sensitivityRatio = sensitivity / 100;
+
+    const MIN_MULTIPLIER = 0.5;
+    const RANGE_MULTIPLIER = 1;
+
+    const multiplier = MIN_MULTIPLIER + sensitivityRatio * RANGE_MULTIPLIER;
+
+    return LIFT * multiplier;
   }, [sensitivity]);
 
   return (
     <GestureDetector gesture={pan}>
       <Animated.View style={styles.container}>
-        <ScrollingBackground backgroundX={backgroundX} />
+        <ScrollingBackground backgroundX={backgroundOffset} />
         <PlayerPlane
           x={planeRect.x}
           width={PLANE_SIZE.width}

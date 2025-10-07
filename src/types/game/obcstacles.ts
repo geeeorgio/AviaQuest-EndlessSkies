@@ -13,7 +13,7 @@ export interface ObstacleData {
 
 export type SpawnedObstacle = {
   id: number;
-  type: 'Bird' | 'Drone' | 'FuelCan' | 'Ring';
+  type: ObstacleType;
   y: number;
   width: number;
   height: number;

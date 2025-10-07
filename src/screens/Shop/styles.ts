@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from 'src/constants';
 
 export const styles = StyleSheet.create({
-  headerBody: { marginTop: 28 },
+  headerBody: { marginTop: 22 },
   ringsCounter: {
     width: '33%',
     alignSelf: 'center',

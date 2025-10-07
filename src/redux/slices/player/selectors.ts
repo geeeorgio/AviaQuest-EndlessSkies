@@ -50,3 +50,8 @@ export const selectGameOverReason = (state: RootState) =>
   state.player.gamePlay.gameOverReason;
 export const selectGameKey = (state: RootState) =>
   state.player.gamePlay.gameKey;
+
+export const selectSessionDistance = (state: RootState) =>
+  state.player.gamePlay.distance;
+
+export const selectMaxDistance = (state: RootState) => state.player.maxDistance;

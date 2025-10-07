@@ -36,7 +36,6 @@ const CustomButton = ({
         styles.btn,
         extraStyle,
         pressed && styles.btnPressed,
-        isDisabled && styles.btnDisabled,
         variantStyles[variant],
         fullWidth && { alignSelf: 'stretch' },
       ]}

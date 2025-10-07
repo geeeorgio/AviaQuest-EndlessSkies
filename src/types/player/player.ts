@@ -10,6 +10,7 @@ export interface GamePlayState {
   sessionRings: number;
   gameOverReason: GameOverReason;
   gameKey: number;
+  distance: number;
 }
 
 export interface PlayerState {
@@ -18,4 +19,5 @@ export interface PlayerState {
   selectedVehicleId: VehicleId;
   totalRings: number;
   gamePlay: GamePlayState;
+  maxDistance: number;
 }

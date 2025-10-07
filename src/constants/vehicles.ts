@@ -9,6 +9,8 @@ const GameAssets = {
   Helicopter: require('../assets/images/gameItems/helicopter.png'),
 };
 
+export const pausePlane = GameAssets.PlaneSmall;
+
 export const VEHICLES: Vehicle[] = [
   {
     id: 'plane-primary',

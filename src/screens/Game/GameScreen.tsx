@@ -10,7 +10,7 @@ import { styles } from './styles';
 import {
   GameOverModal,
   GameScene,
-  HeadUpDisplay,
+  HeadUpContainer,
   PauseModal,
 } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
@@ -50,7 +50,7 @@ const GameScreen = () => {
             <BlurView
               style={StyleSheet.absoluteFill}
               blurType="dark"
-              blurAmount={5}
+              blurAmount={10}
               reducedTransparencyFallbackColor="black"
             />
           )}
@@ -67,7 +67,7 @@ const GameScreen = () => {
             },
           ]}
         >
-          {isGameActive && <HeadUpDisplay />}
+          {isGameActive && <HeadUpContainer />}
           {isPaused && <PauseModal />}
           {isGameOver && <GameOverModal />}
         </View>

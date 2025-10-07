@@ -12,7 +12,6 @@ import { useAppSelector } from 'src/hooks/toolkit';
 import {
   selectIsVehiclePurchased,
   selectSelectedVehicleId,
-  selectVehicleIsSeclected,
 } from 'src/redux/slices/player/selectors';
 import type { Vehicle } from 'src/types/game/vehicles';
 import type { MainScreenName } from 'src/types/navigation/main';
@@ -20,7 +19,6 @@ import type { MainScreenName } from 'src/types/navigation/main';
 interface ListItemProps {
   item: Vehicle;
   mode: MainScreenName;
-
   onExchangePress?: () => void;
   onChoosePress?: () => void;
   onDeletePress?: () => void;
@@ -33,11 +31,12 @@ const ListItem = ({
   onChoosePress,
   onDeletePress,
 }: ListItemProps) => {
-  const isSelected = useAppSelector(selectVehicleIsSeclected);
   const isCurrent = useAppSelector(selectSelectedVehicleId(item.id));
   const isPurchased = useAppSelector(selectIsVehiclePurchased(item.id));
 
-  const showTwoButtons = mode === 'InventoryScreen' && !isCurrent;
+  const isDefault = item.default;
+
+  const showTwoButtons = mode === 'InventoryScreen' && !isCurrent && !isDefault;
 
   let shopButtonTitle = 'Exchange for rings';
   let shopButtonDisabled = false;
@@ -57,7 +56,7 @@ const ListItem = ({
       <View style={styles.cardInfo}>
         <CustomText extraStyle={styles.title}>{item.name}</CustomText>
 
-        {mode === 'ShopScreen' && !isPurchased && (
+        {mode === 'ShopScreen' && (
           <View style={styles.priceWrapper}>
             <Image
               source={OBSTACKLES.Ring}
@@ -72,12 +71,14 @@ const ListItem = ({
 
         {mode === 'ShopScreen' && (
           <CustomButton
-            extraStyle={styles.singleBtn}
+            extraStyle={[styles.singleBtn, isPurchased && styles.purchasedBtn]}
             handlePress={onExchangePress}
             isDisabled={shopButtonDisabled}
             variant={shopButtonDisabled ? 'white' : 'primary'}
           >
-            <CustomText extraStyle={styles.btnText}>
+            <CustomText
+              extraStyle={[styles.btnText, isPurchased && styles.purchasedText]}
+            >
               {shopButtonTitle}
             </CustomText>
           </CustomButton>
@@ -91,7 +92,7 @@ const ListItem = ({
               variant={'white'}
             >
               <CustomText extraStyle={styles.inventoryBtnText}>
-                {isSelected ? 'Selected' : 'Choose'}
+                {isCurrent ? 'Selected' : 'Choose'}
               </CustomText>
             </CustomButton>
 

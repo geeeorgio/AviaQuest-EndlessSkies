@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   cardInfo: {
-    gap: 8,
+    gap: 7,
   },
   title: {
     fontSize: 24,
@@ -36,8 +36,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
-    width: 105,
-    height: 100,
+    width: 115,
+    height: 115,
   },
   itemImg: {
     width: '100%',
@@ -48,13 +48,18 @@ export const styles = StyleSheet.create({
   },
   singleBtn: {
     minWidth: 150,
-    paddingVertical: 14,
+    paddingVertical: 12,
     borderRadius: 6,
+    marginTop: 4,
+  },
+  purchasedBtn: {
+    borderColor: COLORS.Primary,
+    borderWidth: 3,
   },
   chooseBtn: {
     borderColor: COLORS.Primary,
     borderWidth: 3,
-    minWidth: 80,
+    minWidth: 105,
     borderRadius: 6,
     paddingVertical: 12,
     paddingHorizontal: 22,
@@ -68,6 +73,7 @@ export const styles = StyleSheet.create({
     color: COLORS.White,
     fontSize: 12,
   },
+  purchasedText: { color: COLORS.Primary },
   inventoryBtnText: {
     fontSize: 12,
     color: COLORS.Primary,

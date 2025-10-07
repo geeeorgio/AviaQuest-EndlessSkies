@@ -11,9 +11,6 @@ export const styles = StyleSheet.create({
   btnPressed: {
     opacity: 0.8,
   },
-  btnDisabled: {
-    opacity: 0.5,
-  },
   white: { backgroundColor: COLORS.White },
   prime: {
     backgroundColor: COLORS.Primary,

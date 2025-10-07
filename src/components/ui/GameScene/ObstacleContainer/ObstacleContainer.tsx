@@ -1,24 +1,25 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import Animated, {
-  runOnJS,
+  Easing,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 import type { SharedValue } from 'react-native-reanimated';
+import { runOnJS } from 'react-native-worklets';
 
 import { styles } from './styles';
 
-import {
-  OBSTACKLES_SIZES,
-  OBSTACLE_INTERVAL,
-  OBSTACLE_SPEED,
-} from 'src/constants/gameplay';
-import { MAX_OBSTACLE_LIMITS, OBSTACKLES } from 'src/constants/obstackleItems';
+import { OBSTACLE_SPEED } from 'src/constants/gameplay';
 import { useAppDispatch } from 'src/hooks/toolkit';
-import { addFuel, addRings, gameOver } from 'src/redux/slices/player/slice';
-import type { ObstacleType, SpawnedObstacle } from 'src/types/game/obcstacles';
+import { useObstacleGeneration } from 'src/hooks/useObstacleGeneration';
+import {
+  addFuel,
+  addSessionRings,
+  gameOver,
+} from 'src/redux/slices/player/slice';
+import type { SpawnedObstacle } from 'src/types/game/obcstacles';
 import type { GameOverReason } from 'src/types/player/player';
 import { triggerVibration } from 'src/utils/vibration';
 
@@ -47,7 +48,7 @@ export const ObstacleContainer = ({
 
   const onAddRings = useCallback(
     (amount: number) => {
-      dispatch(addRings(amount));
+      dispatch(addSessionRings(amount));
     },
     [dispatch],
   );
@@ -65,81 +66,11 @@ export const ObstacleContainer = ({
     [dispatch],
   );
 
-  const [obstacles, setObstacles] = useState<SpawnedObstacle[]>([]);
-
-  const idRef = useRef(1);
-
-  const sizes = useMemo(() => OBSTACKLES_SIZES, []);
-
-  const spawnObstacle = () => {
-    const availableTypes: ObstacleType[] = ['Bird', 'Drone', 'FuelCan', 'Ring'];
-
-    const currentCounts: Record<ObstacleType, number> = {
-      Bird: 0,
-      Drone: 0,
-      Ring: 0,
-      FuelCan: 0,
-    };
-
-    obstacles.forEach((o) => {
-      currentCounts[o.type] = (currentCounts[o.type] || 0) + 1;
-    });
-
-    const allowedTypes = availableTypes.filter(
-      (type) => currentCounts[type] < MAX_OBSTACLE_LIMITS[type],
-    );
-
-    if (allowedTypes.length === 0) {
-      return;
-    }
-
-    const type = allowedTypes[Math.floor(Math.random() * allowedTypes.length)];
-
-    const s = sizes[type];
-    const y = Math.max(
-      0,
-      Math.min(
-        screenHeight - s.height,
-        Math.random() * (screenHeight - s.height),
-      ),
-    );
-
-    const next: SpawnedObstacle = {
-      id: idRef.current++,
-      type,
-      y,
-      width: s.width,
-      height: s.height,
-      source: (OBSTACKLES as any)[type],
-    };
-
-    setObstacles((prev) => [...prev, next]);
-  };
-
-  const removeObstacleById = (id: number) => {
-    setObstacles((prev) => prev.filter((o) => o.id !== id));
-  };
-
-  const ticker = useSharedValue(0);
-
-  const lastSpawn = useSharedValue(0);
-
-  useAnimatedReaction(
-    () => ticker.value,
-    () => {
-      'worklet';
-      if (!isPlaying.value) return;
-
-      const now = Date.now();
-      if (now - lastSpawn.value >= OBSTACLE_INTERVAL) {
-        lastSpawn.value = now;
-        runOnJS(spawnObstacle)();
-      }
-
-      ticker.value = withTiming(ticker.value + 1, { duration: 200 });
-    },
-    [isPlaying],
-  );
+  const { obstacles, removeObstacleById } = useObstacleGeneration({
+    screenWidth,
+    screenHeight,
+    isPlaying,
+  });
 
   return (
     <Animated.View style={styles.container} pointerEvents="none">
@@ -155,12 +86,10 @@ export const ObstacleContainer = ({
           vibrationEnabled={vibrationEnabled}
           isPlaying={isPlaying}
           onGameOver={onGameOver}
-          onDone={(id: number) => {
-            removeObstacleById(id);
-          }}
+          onDone={removeObstacleById}
           onPickup={(picked: SpawnedObstacle) => {
             if (picked.type === 'Ring') onAddRings(1);
-            if (picked.type === 'FuelCan') onAddFuel(10);
+            if (picked.type === 'FuelCan') onAddFuel(5);
           }}
         />
       ))}
@@ -205,13 +134,21 @@ const AnimatedObstacle: React.FC<{
   ) => {
     'worklet';
     const distance = currentX + o.width + 40;
+
     const duration = remainingDuration ?? distance * (400 / OBSTACLE_SPEED);
     currentDuration.current = duration;
 
-    x.value = withTiming(-o.width - 40, { duration }, (finished) => {
-      'worklet';
-      if (finished) runOnJS(onDone)(o.id);
-    });
+    x.value = withTiming(
+      -o.width - 40,
+      {
+        duration,
+        easing: Easing.linear,
+      },
+      (finished) => {
+        'worklet';
+        if (finished) runOnJS(onDone)(o.id);
+      },
+    );
     lastTime.current = Date.now();
   };
 
@@ -277,36 +214,6 @@ const AnimatedObstacle: React.FC<{
     },
 
     [planeX, planeY, planeWidth, planeHeight, isPlaying],
-  );
-
-  useAnimatedReaction(
-    () => isPlaying.value,
-    (current, prev) => {
-      'worklet';
-      if (current === prev) return;
-
-      if (current) {
-        const timeElapsed = Date.now() - lastTime.current;
-        const remainingDuration = currentDuration.current - timeElapsed;
-
-        if (remainingDuration > 0) {
-          x.value = withTiming(
-            -o.width - 40,
-            { duration: remainingDuration },
-            (finished) => {
-              'worklet';
-              if (finished) runOnJS(onDone)(o.id);
-            },
-          );
-        } else {
-          runOnJS(onDone)(o.id);
-        }
-      } else {
-        x.value = x.value;
-        lastTime.current = Date.now();
-      }
-    },
-    [x, o.width, onDone, o.id, isPlaying],
   );
 
   const style = useAnimatedStyle(() => ({
