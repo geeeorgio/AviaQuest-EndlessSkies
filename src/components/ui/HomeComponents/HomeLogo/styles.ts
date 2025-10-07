@@ -5,10 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingHorizontal: 16,
   },
   mainPlane: {
-    width: '100%',
-    height: '100%',
+    width: '90%',
+    height: '90%',
   },
 });

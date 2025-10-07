@@ -59,14 +59,14 @@ const GameOverModal = () => {
           {content.text === 'OUT OF FUEL' && (
             <Image
               source={content.icon}
-              style={styles.reasonIcon}
+              style={[styles.reasonIcon, styles.flippedReasonIcon]}
               resizeMode="contain"
             />
           )}
           <CustomText
             extraStyle={[
-              content.text === 'OUT OF FUEL' && { fontSize: 32 },
               styles.reasonText,
+              content.text === 'OUT OF FUEL' && { fontSize: 24 },
             ]}
           >
             {content.text}

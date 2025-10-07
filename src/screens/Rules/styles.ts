@@ -4,15 +4,14 @@ import { COLORS, FONTS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   scrollContent: {
-    marginTop: 88,
+    marginTop: 30,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    paddingHorizontal: 7,
   },
   logoContainer: {
-    width: 212,
-    height: 204,
-    marginBottom: 37,
+    width: 200,
+    height: 180,
+    marginBottom: 30,
   },
   mainPlane: {
     width: '100%',
@@ -21,11 +20,11 @@ export const styles = StyleSheet.create({
   rulesList: {
     width: '100%',
     alignItems: 'flex-start',
-    gap: 20,
+    gap: 10,
   },
   ruleText: {
     fontFamily: FONTS.NunitoExtra,
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'left',
     textTransform: 'uppercase',
     color: COLORS.White,

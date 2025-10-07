@@ -23,11 +23,11 @@ const OnboardingScreen = () => {
 
       <View style={styles.contentArea}>
         <View style={styles.textGroup}>
-          <CustomContainer>
+          <CustomContainer extraStyle={styles.noPadding}>
             <CustomText extraStyle={styles.titleText}>FIRST TAKEOFF</CustomText>
           </CustomContainer>
 
-          <CustomContainer>
+          <CustomContainer extraStyle={styles.noPadding}>
             <CustomText extraStyle={styles.descriptionText}>
               Immerse yourself in the poetic flow of air - touch the screen to
               go up, let go to go down. Your journey into the endless skies

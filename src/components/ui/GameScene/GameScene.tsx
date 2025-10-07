@@ -21,6 +21,7 @@ import {
 } from 'src/redux/slices/settings/selectors';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
+const CYCLE_WIDTH = SCREEN_WIDTH * 2;
 
 const GameScene = () => {
   const dispatch = useAppDispatch();
@@ -44,13 +45,12 @@ const GameScene = () => {
     'worklet';
     if (!isPlaying.value) return;
 
-    const pixelsToMove = BACKGROUND_SPEED * (1 / 60);
-    const newOffset = backgroundOffset.value - pixelsToMove;
+    const pixelsToMove = Math.round(BACKGROUND_SPEED * (100 / 60)) / 100;
 
-    if (newOffset <= -SCREEN_WIDTH) {
-      backgroundOffset.value = newOffset + SCREEN_WIDTH;
-    } else {
-      backgroundOffset.value = newOffset;
+    backgroundOffset.value = backgroundOffset.value - pixelsToMove;
+
+    if (backgroundOffset.value <= -CYCLE_WIDTH) {
+      backgroundOffset.value += CYCLE_WIDTH;
     }
   });
 

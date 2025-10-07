@@ -5,9 +5,13 @@ import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { styles } from './styles';
 
-import { GAME_BACKGROUND } from 'src/constants';
+import {
+  GAME_BACKGROUND_MIRRORED,
+  GAME_BACKGROUND_ORIGINAL,
+} from 'src/constants/bacground';
 
 const { width } = Dimensions.get('window');
+const SCROLLING_CONTAINER_WIDTH = width * 4;
 
 interface ScrollingBackgroundProps {
   backgroundX: SharedValue<number>;
@@ -18,24 +22,35 @@ const ScrollingBackground = ({ backgroundX }: ScrollingBackgroundProps) => {
     transform: [{ translateX: backgroundX.value }],
   }));
 
-  const mirroredStyle = {
-    transform: [{ scaleX: -1 }],
-  };
-
   return (
     <View style={styles.container}>
       <Animated.View
-        style={[styles.backgroundWrapper, animatedStyle, { width: width * 2 }]}
+        style={[
+          styles.backgroundWrapper,
+          animatedStyle,
+          { width: SCROLLING_CONTAINER_WIDTH },
+        ]}
       >
         <Image
-          source={GAME_BACKGROUND}
+          source={GAME_BACKGROUND_ORIGINAL}
           style={[styles.image, { width }]}
           resizeMode="cover"
         />
 
         <Image
-          source={GAME_BACKGROUND}
-          style={[styles.image, { width }, mirroredStyle]}
+          source={GAME_BACKGROUND_MIRRORED}
+          style={[styles.image, { width }]}
+          resizeMode="cover"
+        />
+        <Image
+          source={GAME_BACKGROUND_ORIGINAL}
+          style={[styles.image, { width }]}
+          resizeMode="cover"
+        />
+
+        <Image
+          source={GAME_BACKGROUND_MIRRORED}
+          style={[styles.image, { width }]}
           resizeMode="cover"
         />
       </Animated.View>

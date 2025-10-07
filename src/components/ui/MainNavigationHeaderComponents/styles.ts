@@ -9,11 +9,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    minHeight: 80,
+    minHeight: 70,
   },
   backButton: {
-    width: 77,
-    height: 77,
+    width: 66,
+    height: 66,
     padding: 0,
     backgroundColor: COLORS.White,
     justifyContent: 'center',
@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.Primary,
   },
   emptySpace: {
-    width: 77,
-    height: 77,
+    width: 66,
+    height: 66,
   },
   titleWrapper: {
     flex: 1,
@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 0,
     paddingHorizontal: 25,
+    paddingVertical: 15,
   },
   red: {
     justifyContent: 'center',
@@ -43,10 +44,11 @@ export const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 0,
     paddingHorizontal: 30,
+    paddingVertical: 15,
   },
   text: {
     color: COLORS.White,
-    fontSize: 24,
+    fontSize: 23,
     fontFamily: FONTS.Main,
   },
 });

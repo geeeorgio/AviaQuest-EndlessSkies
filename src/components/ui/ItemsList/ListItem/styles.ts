@@ -4,29 +4,31 @@ import { COLORS, FONTS } from 'src/constants';
 
 export const styles = StyleSheet.create({
   cardWrapper: {
+    width: '100%',
     borderWidth: 0,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 12,
     marginBottom: 11,
-    paddingTop: 18,
-    paddingBottom: 12,
+    paddingVertical: 11,
+    paddingHorizontal: 11,
   },
   cardInfo: {
-    gap: 7,
+    flex: 1,
+    gap: 4,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
   },
   priceWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   ringImg: {
-    width: 21,
-    height: 21,
+    width: 18,
+    height: 18,
   },
   price: {
     fontSize: 12,
@@ -35,51 +37,53 @@ export const styles = StyleSheet.create({
   itemLogoWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 0,
-    width: 115,
-    height: 115,
+    paddingHorizontal: 10,
+    width: '35%',
+    maxHeight: '100%',
+    aspectRatio: 1,
   },
   itemImg: {
     width: '100%',
     height: '100%',
   },
-  inventoryActions: {
-    flexDirection: 'row',
-  },
   singleBtn: {
-    minWidth: 150,
-    paddingVertical: 12,
+    width: '65%',
+    paddingVertical: 10,
     borderRadius: 6,
-    marginTop: 4,
   },
   purchasedBtn: {
     borderColor: COLORS.Primary,
     borderWidth: 3,
   },
+
+  inventoryActions: {
+    width: '100%',
+    flexDirection: 'row',
+  },
   chooseBtn: {
     borderColor: COLORS.Primary,
     borderWidth: 3,
-    minWidth: 105,
+    width: '50%',
+    minWidth: 100,
     borderRadius: 6,
-    paddingVertical: 12,
-    paddingHorizontal: 22,
+    paddingVertical: 10,
   },
   deleteBtn: {
-    minWidth: 80,
-    paddingVertical: 6,
-    backgroundColor: COLORS.Secondary,
+    width: '45%',
+    minWidth: 60,
+    paddingVertical: 10,
   },
   btnText: {
     color: COLORS.White,
-    fontSize: 12,
+    fontSize: 11,
   },
   purchasedText: { color: COLORS.Primary },
   inventoryBtnText: {
-    fontSize: 12,
+    fontSize: 11,
     color: COLORS.Primary,
   },
   deleteBtnText: {
     color: COLORS.DeleteBtn,
-    fontSize: 12,
+    fontSize: 11,
   },
 });

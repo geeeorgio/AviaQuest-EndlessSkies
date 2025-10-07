@@ -8,14 +8,14 @@ export const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     alignItems: 'flex-start',
-    paddingTop: 25,
-    paddingBottom: 35,
+    paddingTop: 15,
+    paddingBottom: 15,
   },
   label: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,
-    marginBottom: 21,
+    marginBottom: 15,
   },
   trackWrapper: {
     width: '100%',
@@ -50,8 +50,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   value: {
-    marginTop: 8,
-    fontSize: 15,
+    marginTop: 6,
+    fontSize: 14,
     alignSelf: 'center',
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,

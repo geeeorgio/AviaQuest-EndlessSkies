@@ -3,21 +3,21 @@ import { StyleSheet } from 'react-native';
 import { COLORS, FONTS } from 'src/constants';
 
 export const styles = StyleSheet.create({
-  container: { marginTop: 105 },
+  container: { marginTop: 70, gap: 15 },
   section: {
-    marginBottom: 10,
     width: '100%',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
   },
   resetBtn: {
-    marginTop: 20,
     backgroundColor: COLORS.Red,
     borderWidth: 3,
     borderColor: COLORS.Primary,
-    borderRadius: 15,
-    paddingVertical: 30,
+    borderRadius: 20,
+    paddingVertical: 20,
   },
   resetText: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.White,
     textAlign: 'center',

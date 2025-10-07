@@ -25,16 +25,14 @@ const OnboardingScreen2 = () => {
 
       <View style={styles.contentArea}>
         <View style={styles.textGroup}>
-          <CustomContainer>
-            <CustomText extraStyle={[styles.titleText, { fontSize: 24 }]}>
+          <CustomContainer extraStyle={styles.noPadding}>
+            <CustomText extraStyle={[styles.titleText, { fontSize: 22 }]}>
               The last frontier
             </CustomText>
           </CustomContainer>
 
-          <CustomContainer>
-            <CustomText
-              extraStyle={[styles.descriptionText, { paddingVertical: 8 }]}
-            >
+          <CustomContainer extraStyle={styles.noPadding}>
+            <CustomText extraStyle={styles.descriptionText}>
               Test your own courage in this endless challenge - the game is
               always with you offline.
             </CustomText>

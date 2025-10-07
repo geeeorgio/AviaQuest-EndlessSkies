@@ -27,22 +27,24 @@ const ToggleSwitch = () => {
     <View style={styles.mainWrapper}>
       <CustomText extraStyle={styles.label}>VIBRATION:</CustomText>
 
-      <View style={styles.circlesWrapper}>
-        <Pressable
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          style={[styles.circle, !vibrationEnabled && styles.active]}
-          onPress={handleVibrationOff}
-        ></Pressable>
-        <CustomText extraStyle={styles.option}>OFF</CustomText>
-      </View>
+      <View style={styles.switchesContainer}>
+        <View style={styles.circlesWrapper}>
+          <Pressable
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={[styles.circle, !vibrationEnabled && styles.active]}
+            onPress={handleVibrationOff}
+          ></Pressable>
+          <CustomText extraStyle={styles.option}>OFF</CustomText>
+        </View>
 
-      <View style={styles.circlesWrapper}>
-        <Pressable
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          style={[styles.circle, vibrationEnabled && styles.active]}
-          onPress={handleVibrationOn}
-        ></Pressable>
-        <CustomText extraStyle={styles.option}>ON</CustomText>
+        <View style={styles.circlesWrapper}>
+          <Pressable
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={[styles.circle, vibrationEnabled && styles.active]}
+            onPress={handleVibrationOn}
+          ></Pressable>
+          <CustomText extraStyle={styles.option}>ON</CustomText>
+        </View>
       </View>
     </View>
   );

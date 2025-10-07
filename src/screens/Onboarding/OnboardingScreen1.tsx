@@ -36,16 +36,14 @@ const OnboardingScreen1 = () => {
 
       <View style={styles.contentArea}>
         <View style={styles.textGroup}>
-          <CustomContainer>
-            <CustomText extraStyle={[styles.titleText, { fontSize: 24 }]}>
+          <CustomContainer extraStyle={styles.noPadding}>
+            <CustomText extraStyle={[styles.titleText, { fontSize: 22 }]}>
               Obstacles ahead
             </CustomText>
           </CustomContainer>
 
-          <CustomContainer>
-            <CustomText
-              extraStyle={[styles.descriptionText, { paddingVertical: 8 }]}
-            >
+          <CustomContainer extraStyle={styles.noPadding}>
+            <CustomText extraStyle={styles.descriptionText}>
               Avoid obstacles, collect rings and fuel tanks - let your courage
               speak for itself.
             </CustomText>

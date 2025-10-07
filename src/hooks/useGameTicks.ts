@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   runOnJS,
   useFrameCallback,
@@ -10,11 +10,17 @@ import {
   DISTANCE_TICK_INTERVAL_MS,
   FUEL_TICK_INTERVAL_MS,
 } from 'src/constants/gameplay';
-import { useAppDispatch } from 'src/hooks/toolkit';
-import { decreaseFuel, incrementDistance } from 'src/redux/slices/player/slice';
+import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
+import { selectFuel } from 'src/redux/slices/player/selectors';
+import {
+  decreaseFuel,
+  gameOver,
+  incrementDistance,
+} from 'src/redux/slices/player/slice';
 
 export const useGameTicks = (isPlaying: SharedValue<boolean>) => {
   const dispatch = useAppDispatch();
+  const fuel = useAppSelector(selectFuel);
 
   const lastDistanceTime = useSharedValue(Date.now());
   const lastFuelTime = useSharedValue(Date.now());
@@ -27,6 +33,16 @@ export const useGameTicks = (isPlaying: SharedValue<boolean>) => {
     () => dispatch(incrementDistance(1)),
     [dispatch],
   );
+
+  const onGameOver = useCallback(() => {
+    dispatch(gameOver('FuelOut'));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (fuel <= 1) {
+      onGameOver();
+    }
+  }, [fuel, onGameOver]);
 
   useFrameCallback(() => {
     'worklet';

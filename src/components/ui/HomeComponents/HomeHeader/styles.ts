@@ -9,18 +9,21 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    paddingHorizontal: 70,
+    paddingHorizontal: 55,
     marginTop: 10,
+    marginBottom: 17,
   },
   container: {
     flex: 1,
     minWidth: 0,
     flexDirection: 'row',
     gap: 7,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
   },
   ringIcon: {
-    width: 37,
-    height: 38,
+    width: 33,
+    height: 33,
   },
   ringText: {
     textAlign: 'center',
@@ -28,7 +31,7 @@ export const styles = StyleSheet.create({
     color: COLORS.Black,
   },
   miniPlane: {
-    width: 58,
-    height: 38,
+    width: 53,
+    height: 33,
   },
 });

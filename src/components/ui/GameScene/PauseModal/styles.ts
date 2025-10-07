@@ -12,12 +12,12 @@ export const styles = StyleSheet.create({
   headerWrapper: {
     width: '80%',
     marginBottom: 20,
-    paddingTop: 130,
+    paddingTop: 110,
   },
   headerContainer: {
     width: '100%',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
   },
   headerIconsOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -31,21 +31,21 @@ export const styles = StyleSheet.create({
   },
   fuelIcon: { width: 98, height: 98 },
   headerTitle: {
-    fontSize: 36,
+    fontSize: 30,
     color: COLORS.Black,
   },
   modalContent: {
-    width: '96%',
-    maxWidth: 400,
+    width: '95%',
+    maxWidth: 350,
     paddingVertical: 30,
     alignItems: 'center',
   },
   ringsTexts: {
     fontSize: 20,
-    marginBottom: 13,
+    marginBottom: 12,
   },
   ringsInfo: {
-    marginBottom: 32,
+    marginBottom: 30,
     alignItems: 'center',
   },
   ringsCountContainer: {
@@ -54,17 +54,17 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   ringIcon: {
-    width: 38,
-    height: 38,
+    width: 33,
+    height: 33,
   },
   ringsValueText: {
-    fontSize: 15,
+    fontSize: 14,
   },
   btnContainer: {
     width: '100%',
-    paddingHorizontal: 77,
+    paddingHorizontal: '20%',
     alignItems: 'center',
-    gap: 15,
+    gap: 14,
   },
   button: {
     width: '100%',

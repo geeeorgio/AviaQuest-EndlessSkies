@@ -10,17 +10,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 22,
-    gap: 20,
+    paddingHorizontal: 15,
   },
   currentVehicle: {
-    flex: 0.5,
-    maxHeight: 50,
-    maxWidth: 100,
+    maxHeight: 40,
+    maxWidth: 80,
     aspectRatio: 1,
   },
   text: {
-    flex: 1,
-    fontSize: 24,
+    fontSize: 23,
     color: COLORS.Black,
   },
 });

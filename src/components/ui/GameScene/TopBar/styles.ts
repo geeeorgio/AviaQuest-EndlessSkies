@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sideContainer: {
-    width: 77,
+    width: 66,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pauseButton: {
-    width: 77,
-    height: 77,
+    width: 66,
+    height: 66,
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: COLORS.Primary,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.White,
   },
   pauseText: {
-    fontSize: 33,
+    fontSize: 30,
     color: COLORS.Primary,
     textAlign: 'center',
   },
