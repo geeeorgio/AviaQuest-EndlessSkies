@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   cardWrapper: {
@@ -10,34 +11,34 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 12,
-    marginBottom: 11,
-    paddingVertical: 11,
-    paddingHorizontal: 11,
+    marginBottom: hp(11),
+    paddingVertical: hp(11),
+    paddingHorizontal: wp(11),
   },
   cardInfo: {
     flex: 1,
     gap: 4,
   },
   title: {
-    fontSize: 20,
+    fontSize: sp(20),
   },
   priceWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: wp(6),
   },
   ringImg: {
-    width: 18,
-    height: 18,
+    width: wp(18),
+    height: hp(18),
   },
   price: {
-    fontSize: 12,
+    fontSize: sp(12),
     fontFamily: FONTS.NunitoSemi,
   },
   itemLogoWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: wp(10),
     width: '35%',
     maxHeight: '100%',
     aspectRatio: 1,
@@ -48,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   singleBtn: {
     width: '65%',
-    paddingVertical: 10,
+    paddingVertical: hp(10),
     borderRadius: 6,
   },
   purchasedBtn: {
@@ -64,26 +65,26 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.Primary,
     borderWidth: 3,
     width: '50%',
-    minWidth: 100,
+    minWidth: wp(100),
     borderRadius: 6,
-    paddingVertical: 10,
+    paddingVertical: hp(10),
   },
   deleteBtn: {
     width: '45%',
-    minWidth: 60,
-    paddingVertical: 10,
+    minWidth: wp(60),
+    paddingVertical: hp(10),
   },
   btnText: {
     color: COLORS.White,
-    fontSize: 11,
+    fontSize: sp(11),
   },
   purchasedText: { color: COLORS.Primary },
   inventoryBtnText: {
-    fontSize: 11,
+    fontSize: sp(11),
     color: COLORS.Primary,
   },
   deleteBtnText: {
     color: COLORS.DeleteBtn,
-    fontSize: 11,
+    fontSize: sp(11),
   },
 });

@@ -23,27 +23,41 @@ import {
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 const CYCLE_WIDTH = SCREEN_WIDTH * 2;
 
-const GameScene = () => {
+interface GameSceneProps {
+  isFallingEnabledProp: boolean;
+}
+
+const GameScene = ({ isFallingEnabledProp }: GameSceneProps) => {
   const dispatch = useAppDispatch();
   const sensitivity = useAppSelector(selectSensitivity);
   const vibrationEnabled = useAppSelector(selectVibration);
   const isPlayingRedux = useAppSelector(selectIsPlaying);
 
-  const planeY = useSharedValue(SCREEN_HEIGHT * 0.5 - PLANE_SIZE.height / 2);
+  const planeY = useSharedValue(SCREEN_HEIGHT * 0.3 - PLANE_SIZE.height / 2);
   const planeVelocity = useSharedValue(0);
   const isPressing = useSharedValue(0);
   const isPlaying = useSharedValue(false);
   const backgroundOffset = useSharedValue(0);
+  const isFallingEnabled = useSharedValue(false);
 
-  useGameTicks(isPlaying);
+  useGameTicks(isPlaying, isFallingEnabled);
 
   useEffect(() => {
     isPlaying.value = !!isPlayingRedux;
   }, [isPlayingRedux, isPlaying]);
 
+  useEffect(() => {
+    'worklet';
+    isFallingEnabled.value = isFallingEnabledProp;
+
+    if (!isPlayingRedux) {
+      isPressing.value = 0;
+    }
+  }, [isFallingEnabledProp, isFallingEnabled, isPlayingRedux, isPressing]);
+
   useFrameCallback(() => {
     'worklet';
-    if (!isPlaying.value) return;
+    if (!isPlaying.value || !isFallingEnabled.value) return;
 
     const pixelsToMove = Math.round(BACKGROUND_SPEED * (100 / 60)) / 100;
 
@@ -59,12 +73,16 @@ const GameScene = () => {
   }, [dispatch]);
 
   const pan = Gesture.Pan()
+
     .onBegin(() => {
       'worklet';
-      isPressing.value = 1;
+      if (isFallingEnabled.value) {
+        isPressing.value = 1;
+      }
     })
     .onEnd(() => {
       'worklet';
+
       isPressing.value = 0;
     })
     .onFinalize(() => {
@@ -107,6 +125,7 @@ const GameScene = () => {
           screenHeight={SCREEN_HEIGHT}
           effectiveLift={effectiveLift}
           onPlaneBoundaryHit={onPlaneBoundaryHit}
+          isFallingEnabled={isFallingEnabled}
         />
         <ObstacleContainer
           screenWidth={SCREEN_WIDTH}
@@ -117,6 +136,7 @@ const GameScene = () => {
           planeHeight={PLANE_SIZE.height}
           vibrationEnabled={vibrationEnabled}
           isPlaying={isPlaying}
+          isFallingEnabled={isFallingEnabled}
         />
       </Animated.View>
     </GestureDetector>

@@ -1,4 +1,4 @@
-import { GAME_BACKGROUND, MAIN_BACKGROUND } from './bacground';
+import { MAIN_BACKGROUND } from './bacground';
 import { COLORS } from './colors';
 import { FONTS } from './fonts';
 import { MAX_FUEL } from './gameplay';
@@ -18,5 +18,4 @@ export {
   VEHICLES,
   MAIN_BACKGROUND,
   MAX_FUEL,
-  GAME_BACKGROUND,
 };

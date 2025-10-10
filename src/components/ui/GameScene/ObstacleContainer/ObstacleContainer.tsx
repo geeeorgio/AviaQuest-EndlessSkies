@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Animated, {
   Easing,
   useAnimatedReaction,
@@ -8,6 +8,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import type { SharedValue } from 'react-native-reanimated';
 import { runOnJS } from 'react-native-worklets';
+
+import { RingScorePopup } from '../RingScorePopup/RingScorePopup';
 
 import { styles } from './styles';
 
@@ -23,6 +25,12 @@ import type { SpawnedObstacle } from 'src/types/game/obcstacles';
 import type { GameOverReason } from 'src/types/player/player';
 import { triggerVibration } from 'src/utils/vibration';
 
+type ScorePopup = {
+  id: number;
+  x: number;
+  y: number;
+};
+
 type ObstacleContainerProps = {
   screenWidth: number;
   screenHeight: number;
@@ -32,6 +40,7 @@ type ObstacleContainerProps = {
   planeHeight: number;
   vibrationEnabled: boolean;
   isPlaying: SharedValue<boolean>;
+  isFallingEnabled: SharedValue<boolean>;
 };
 
 export const ObstacleContainer = ({
@@ -43,8 +52,11 @@ export const ObstacleContainer = ({
   planeHeight,
   vibrationEnabled,
   isPlaying,
+  isFallingEnabled,
 }: ObstacleContainerProps) => {
   const dispatch = useAppDispatch();
+  const [scorePopups, setScorePopups] = useState<ScorePopup[]>([]);
+  const popupIdRef = useRef(0);
 
   const onAddRings = useCallback(
     (amount: number) => {
@@ -59,6 +71,7 @@ export const ObstacleContainer = ({
     },
     [dispatch],
   );
+
   const onGameOver = useCallback(
     (reason: GameOverReason) => {
       dispatch(gameOver(reason));
@@ -66,10 +79,40 @@ export const ObstacleContainer = ({
     [dispatch],
   );
 
+  const spawnRingScorePopup = useCallback(
+    (x: number, y: number) => {
+      const newPopup: ScorePopup = {
+        id: popupIdRef.current++,
+
+        x: x + planeWidth / 2 - 10,
+
+        y: y,
+      };
+      setScorePopups((prev) => [...prev, newPopup]);
+    },
+    [planeWidth],
+  );
+
+  const removeScorePopup = useCallback((id: number) => {
+    setScorePopups((prev) => prev.filter((p) => p.id !== id));
+  }, []);
+
+  const handlePickup = useCallback(
+    (picked: SpawnedObstacle, currentPlaneY: number) => {
+      if (picked.type === 'Ring') {
+        onAddRings(1);
+        spawnRingScorePopup(planeX, currentPlaneY);
+      }
+      if (picked.type === 'FuelCan') onAddFuel(5);
+    },
+    [onAddRings, onAddFuel, spawnRingScorePopup, planeX],
+  );
+
   const { obstacles, removeObstacleById } = useObstacleGeneration({
     screenWidth,
     screenHeight,
     isPlaying,
+    isFallingEnabled,
   });
 
   return (
@@ -87,10 +130,17 @@ export const ObstacleContainer = ({
           isPlaying={isPlaying}
           onGameOver={onGameOver}
           onDone={removeObstacleById}
-          onPickup={(picked: SpawnedObstacle) => {
-            if (picked.type === 'Ring') onAddRings(1);
-            if (picked.type === 'FuelCan') onAddFuel(5);
-          }}
+          onPickup={handlePickup}
+          isFallingEnabled={isFallingEnabled}
+        />
+      ))}
+
+      {scorePopups.map((p) => (
+        <RingScorePopup
+          key={p.id}
+          x={p.x}
+          y={p.y}
+          onAnimationEnd={() => removeScorePopup(p.id)}
         />
       ))}
     </Animated.View>
@@ -108,7 +158,8 @@ const AnimatedObstacle: React.FC<{
   isPlaying: SharedValue<boolean>;
   onGameOver: (reason: GameOverReason) => void;
   onDone: (id: number) => void;
-  onPickup: (o: SpawnedObstacle) => void;
+  onPickup: (o: SpawnedObstacle, planeYValue: number) => void;
+  isFallingEnabled: SharedValue<boolean>;
 }> = ({
   o,
   screenWidth,
@@ -121,6 +172,7 @@ const AnimatedObstacle: React.FC<{
   onGameOver,
   onDone,
   onPickup,
+  isFallingEnabled,
 }) => {
   const x = useSharedValue(screenWidth + 10);
   const isHit = useSharedValue(false);
@@ -133,11 +185,11 @@ const AnimatedObstacle: React.FC<{
     remainingDuration?: number,
   ) => {
     'worklet';
-    const distance = currentX + o.width + 40;
+    if (!isFallingEnabled.value) return;
 
+    const distance = currentX + o.width + 40;
     const duration = remainingDuration ?? distance * (400 / OBSTACLE_SPEED);
     currentDuration.current = duration;
-
     x.value = withTiming(
       -o.width - 40,
       {
@@ -153,19 +205,25 @@ const AnimatedObstacle: React.FC<{
   };
 
   useAnimatedReaction(
-    () => isPlaying.value,
+    () => ({ isPlaying: isPlaying.value, isFalling: isFallingEnabled.value }),
     (current, prev) => {
       'worklet';
-      if (current === prev) return;
+      if (
+        current.isPlaying === prev?.isPlaying &&
+        current.isFalling === prev?.isFalling
+      ) {
+        return;
+      }
 
-      if (current) {
+      if (isHit.value) return;
+
+      if (current.isPlaying && current.isFalling) {
         if (!animationStarted.value) {
           runObstacleAnimation(screenWidth + 10);
           animationStarted.value = true;
         } else {
           const timeElapsed = Date.now() - lastTime.current;
           const remainingDuration = currentDuration.current - timeElapsed;
-
           if (remainingDuration > 0) {
             runObstacleAnimation(x.value, remainingDuration);
           } else {
@@ -177,7 +235,7 @@ const AnimatedObstacle: React.FC<{
         lastTime.current = Date.now();
       }
     },
-    [x, o.width, onDone, o.id, isPlaying, screenWidth],
+    [x, o.width, onDone, o.id, isPlaying, isFallingEnabled, screenWidth],
   );
 
   useAnimatedReaction(
@@ -190,30 +248,40 @@ const AnimatedObstacle: React.FC<{
       const by1 = o.y;
       const bx2 = bx1 + o.width;
       const by2 = by1 + o.height;
-
       return ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1;
     },
-
     (hit) => {
       'worklet';
-      if (!isPlaying.value) return;
+      if (!isPlaying.value || !isFallingEnabled.value) return;
       if (!hit) return;
+
       if (isHit.value) return;
       isHit.value = true;
       x.value = x.value;
 
       if (o.type === 'Bird' || o.type === 'Drone') {
         if (vibrationEnabled) runOnJS(triggerVibration)('collision');
-
         runOnJS(onGameOver)('Collision');
         runOnJS(onDone)(o.id);
       } else {
-        runOnJS(onPickup)(o);
+        runOnJS(onPickup)(o, planeY.value);
         runOnJS(onDone)(o.id);
       }
     },
-
-    [planeX, planeY, planeWidth, planeHeight, isPlaying],
+    [
+      planeX,
+      planeY,
+      planeWidth,
+      planeHeight,
+      isPlaying,
+      vibrationEnabled,
+      o.type,
+      o.id,
+      onGameOver,
+      onDone,
+      onPickup,
+      isFallingEnabled,
+    ],
   );
 
   const style = useAnimatedStyle(() => ({
@@ -222,6 +290,16 @@ const AnimatedObstacle: React.FC<{
     top: o.y,
     width: o.width,
     height: o.height,
+    opacity: isHit.value
+      ? withTiming(0, { duration: 150 })
+      : withTiming(1, { duration: 150 }),
+    transform: [
+      {
+        scale: isHit.value
+          ? withTiming(0.1, { duration: 150 })
+          : withTiming(1, { duration: 150 }),
+      },
+    ],
   }));
 
   return (

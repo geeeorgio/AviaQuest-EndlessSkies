@@ -7,7 +7,9 @@ import {
 import type { SharedValue } from 'react-native-reanimated';
 
 import {
+  DISTANCE_INCREASE_AMOUNT,
   DISTANCE_TICK_INTERVAL_MS,
+  FUEL_DECREASE_AMOUNT,
   FUEL_TICK_INTERVAL_MS,
 } from 'src/constants/gameplay';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
@@ -18,7 +20,10 @@ import {
   incrementDistance,
 } from 'src/redux/slices/player/slice';
 
-export const useGameTicks = (isPlaying: SharedValue<boolean>) => {
+export const useGameTicks = (
+  isPlaying: SharedValue<boolean>,
+  isFallingEnabled: SharedValue<boolean>,
+) => {
   const dispatch = useAppDispatch();
   const fuel = useAppSelector(selectFuel);
 
@@ -26,11 +31,11 @@ export const useGameTicks = (isPlaying: SharedValue<boolean>) => {
   const lastFuelTime = useSharedValue(Date.now());
 
   const decreaseFuelAction = useCallback(
-    () => dispatch(decreaseFuel(1)),
+    () => dispatch(decreaseFuel(FUEL_DECREASE_AMOUNT)),
     [dispatch],
   );
   const tickDistanceAction = useCallback(
-    () => dispatch(incrementDistance(1)),
+    () => dispatch(incrementDistance(DISTANCE_INCREASE_AMOUNT)),
     [dispatch],
   );
 
@@ -46,7 +51,7 @@ export const useGameTicks = (isPlaying: SharedValue<boolean>) => {
 
   useFrameCallback(() => {
     'worklet';
-    if (!isPlaying.value) return;
+    if (!isPlaying.value || !isFallingEnabled.value) return;
 
     const now = Date.now();
 

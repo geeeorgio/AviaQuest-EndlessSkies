@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from 'src/constants';
+import { hp, wp, sp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   headerBody: { marginTop: 15 },
@@ -10,14 +11,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 5,
-    marginBottom: 15,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    gap: wp(5),
+    marginBottom: hp(15),
+    paddingVertical: hp(12),
+    paddingHorizontal: wp(12),
   },
-  ring: { width: 33, height: 33 },
+  ring: { width: wp(33), height: hp(33) },
   ringsText: {
-    fontSize: 14,
+    fontSize: sp(14),
     color: COLORS.Black,
   },
 });

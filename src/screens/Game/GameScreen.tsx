@@ -1,6 +1,6 @@
 import { BlurView } from '@react-native-community/blur';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import {
   GameScene,
   HeadUpContainer,
   PauseModal,
+  StartOverlay,
 } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
 import {
@@ -30,8 +31,21 @@ const GameScreen = () => {
 
   const isPaused = useAppSelector(selectIsGamePaused);
   const isGameOver = useAppSelector(selectIsGameOver);
+  const [isFallingEnabled, setIsFallingEnabled] = useState(false);
+
   const isGameActive = !isPaused && !isGameOver;
   const isModalActive = isPaused || isGameOver;
+  const isPreStart = isGameActive && !isFallingEnabled;
+
+  const handleStartGame = () => {
+    if (isPreStart) {
+      setIsFallingEnabled(true);
+    }
+  };
+
+  useEffect(() => {
+    setIsFallingEnabled(false);
+  }, [gameKey]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('beforeRemove', () => {
@@ -44,13 +58,13 @@ const GameScreen = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.gameWorld}>
-          <GameScene key={gameKey} />
+          <GameScene key={gameKey} isFallingEnabledProp={isFallingEnabled} />
 
           {isModalActive && (
             <BlurView
               style={StyleSheet.absoluteFill}
               blurType="dark"
-              blurAmount={10}
+              blurAmount={5}
               reducedTransparencyFallbackColor="black"
             />
           )}
@@ -67,9 +81,10 @@ const GameScreen = () => {
             },
           ]}
         >
-          {isGameActive && <HeadUpContainer />}
+          {isGameActive && !isPreStart && <HeadUpContainer />}
           {isPaused && <PauseModal />}
           {isGameOver && <GameOverModal />}
+          {isPreStart && <StartOverlay onStartGame={handleStartGame} />}
         </View>
       </View>
     </GestureHandlerRootView>

@@ -56,6 +56,10 @@ const slice = createSlice({
       state.gamePlay.isPaused = false;
     },
     gameOver: (state, action: PayloadAction<GameOverReason>) => {
+      if (state.gamePlay.isOver) {
+        return;
+      }
+
       state.gamePlay.isPlaying = false;
       state.gamePlay.isOver = true;
       state.gamePlay.isPaused = false;

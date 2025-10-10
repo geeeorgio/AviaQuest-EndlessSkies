@@ -23,6 +23,7 @@ type PlayerPlaneProps = {
   screenHeight: number;
   effectiveLift: number;
   onPlaneBoundaryHit: () => void;
+  isFallingEnabled: SharedValue<boolean>;
 };
 
 export const PlayerPlane = ({
@@ -36,13 +37,14 @@ export const PlayerPlane = ({
   screenHeight,
   effectiveLift,
   onPlaneBoundaryHit,
+  isFallingEnabled,
 }: PlayerPlaneProps) => {
   const currentVehicle = useAppSelector(selectCurrentVehicle);
   const planeSource = currentVehicle?.image ?? VEHICLES[0].image;
 
   useFrameCallback(() => {
     'worklet';
-    if (!isPlaying.value) return;
+    if (!isPlaying.value || !isFallingEnabled.value) return;
 
     const liftFactor = isPressing.value ? -effectiveLift : GRAVITY;
 

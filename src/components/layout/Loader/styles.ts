@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { PLANE_HEIGHT, PLANE_WIDTH } from 'src/constants/loaderConfig';
+import { hp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   container: {
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   plane: {
-    width: PLANE_WIDTH,
-    height: PLANE_HEIGHT,
+    width: wp(PLANE_WIDTH),
+    height: hp(PLANE_HEIGHT),
   },
 });

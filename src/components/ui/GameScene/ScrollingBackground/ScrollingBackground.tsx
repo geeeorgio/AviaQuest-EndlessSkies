@@ -35,23 +35,27 @@ const ScrollingBackground = ({ backgroundX }: ScrollingBackgroundProps) => {
           source={GAME_BACKGROUND_ORIGINAL}
           style={[styles.image, { width }]}
           resizeMode="cover"
+          fadeDuration={0}
         />
 
         <Image
           source={GAME_BACKGROUND_MIRRORED}
           style={[styles.image, { width }]}
           resizeMode="cover"
+          fadeDuration={0}
         />
         <Image
           source={GAME_BACKGROUND_ORIGINAL}
           style={[styles.image, { width }]}
           resizeMode="cover"
+          fadeDuration={0}
         />
 
         <Image
           source={GAME_BACKGROUND_MIRRORED}
           style={[styles.image, { width }]}
           resizeMode="cover"
+          fadeDuration={0}
         />
       </Animated.View>
     </View>

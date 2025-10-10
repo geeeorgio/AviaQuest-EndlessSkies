@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from 'src/constants';
+import { hp, wp, sp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   headerBody: { marginTop: 28 },
@@ -9,16 +10,16 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 22,
-    paddingHorizontal: 15,
+    marginBottom: hp(22),
+    paddingHorizontal: wp(15),
   },
   currentVehicle: {
-    maxHeight: 40,
-    maxWidth: 80,
+    maxHeight: hp(40),
+    maxWidth: wp(80),
     aspectRatio: 1,
   },
   text: {
-    fontSize: 23,
+    fontSize: sp(23),
     color: COLORS.Black,
   },
 });

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,12 +9,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    minHeight: 70,
+    paddingHorizontal: wp(16),
+    minHeight: hp(70),
   },
   backButton: {
-    width: 66,
-    height: 66,
+    width: wp(66),
+    height: hp(66),
     padding: 0,
     backgroundColor: COLORS.White,
     justifyContent: 'center',
@@ -22,8 +23,8 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.Primary,
   },
   emptySpace: {
-    width: 66,
-    height: 66,
+    width: wp(66),
+    height: hp(66),
   },
   titleWrapper: {
     flex: 1,
@@ -35,20 +36,20 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.Primary,
     borderColor: 'transparent',
     borderWidth: 0,
-    paddingHorizontal: 25,
-    paddingVertical: 15,
+    paddingHorizontal: wp(25),
+    paddingVertical: hp(15),
   },
   red: {
     justifyContent: 'center',
     backgroundColor: COLORS.Secondary,
     borderColor: 'transparent',
     borderWidth: 0,
-    paddingHorizontal: 30,
-    paddingVertical: 15,
+    paddingHorizontal: wp(30),
+    paddingVertical: hp(15),
   },
   text: {
     color: COLORS.White,
-    fontSize: 23,
+    fontSize: sp(23),
     fontFamily: FONTS.Main,
   },
 });

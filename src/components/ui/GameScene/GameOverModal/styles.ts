@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   overlay: {
@@ -14,18 +15,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '70%',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginBottom: 20,
+    paddingHorizontal: wp(10),
+    paddingVertical: hp(10),
+    marginBottom: hp(20),
   },
   headerTitle: {
-    fontSize: 30,
+    fontSize: sp(30),
     color: COLORS.Black,
   },
   modalContent: {
     width: '95%',
-    maxWidth: 350,
-    paddingVertical: 30,
+    maxWidth: wp(350),
+    paddingVertical: hp(30),
     paddingHorizontal: 0,
     alignItems: 'center',
   },
@@ -35,14 +36,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   reasonIcon: {
-    width: 40,
-    height: 40,
+    width: wp(40),
+    height: hp(40),
   },
   flippedReasonIcon: {
     transform: [{ scaleX: -1 }],
   },
   reasonText: {
-    fontSize: 20,
+    fontSize: sp(20),
     color: COLORS.Black,
     textAlign: 'center',
   },
@@ -51,11 +52,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 10,
-    paddingHorizontal: 16,
+    marginVertical: hp(10),
+    paddingHorizontal: wp(16),
   },
   ringsLabel: {
-    fontSize: 16,
+    fontSize: sp(16),
     color: COLORS.Black,
   },
   collected: {
@@ -63,15 +64,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 14,
+    paddingHorizontal: wp(10),
+    paddingVertical: hp(14),
   },
   ringIcon: {
-    width: 33,
-    height: 33,
+    width: wp(33),
+    height: hp(33),
   },
   ringsValue: {
-    fontSize: 14,
+    fontSize: sp(14),
     color: COLORS.Black,
   },
   btnContainer: {
@@ -83,11 +84,11 @@ export const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    paddingVertical: 16,
+    paddingVertical: hp(16),
   },
   shareButton: {},
   buttonText: {
-    fontSize: 20,
+    fontSize: sp(20),
     color: COLORS.White,
     textAlign: 'center',
   },

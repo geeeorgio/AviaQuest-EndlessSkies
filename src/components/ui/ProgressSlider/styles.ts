@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from 'src/constants';
+import { hp, wp, sp } from 'src/utils/scaling';
 
 const THUMB_SIZE = 32;
 
@@ -8,18 +9,18 @@ export const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     alignItems: 'flex-start',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: hp(15),
+    paddingBottom: hp(15),
   },
   label: {
-    fontSize: 22,
+    fontSize: sp(22),
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,
-    marginBottom: 15,
+    marginBottom: hp(15),
   },
   trackWrapper: {
     width: '100%',
-    height: 15,
+    height: hp(15),
     borderRadius: 13,
     borderWidth: 3,
     borderColor: COLORS.Primary,
@@ -35,8 +36,8 @@ export const styles = StyleSheet.create({
   },
   customThumb: {
     position: 'absolute',
-    height: THUMB_SIZE,
-    width: THUMB_SIZE,
+    height: hp(THUMB_SIZE),
+    width: wp(THUMB_SIZE),
     borderRadius: THUMB_SIZE / 2,
     backgroundColor: COLORS.Primary,
     top: -((THUMB_SIZE - 10) / 2),
@@ -44,14 +45,14 @@ export const styles = StyleSheet.create({
   },
   slider: {
     width: '100%',
-    height: THUMB_SIZE * 2,
+    height: hp(THUMB_SIZE) * 2,
     zIndex: 10,
     marginTop: -((THUMB_SIZE * 2) / 2) + 66 / 2,
     marginHorizontal: 4,
   },
   value: {
-    marginTop: 6,
-    fontSize: 14,
+    marginTop: hp(6),
+    fontSize: sp(14),
     alignSelf: 'center',
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,

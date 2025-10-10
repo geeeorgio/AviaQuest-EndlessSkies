@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   overlay: {
@@ -11,13 +12,13 @@ export const styles = StyleSheet.create({
   },
   headerWrapper: {
     width: '80%',
-    marginBottom: 20,
-    paddingTop: 110,
+    marginBottom: hp(20),
+    paddingTop: hp(110),
   },
   headerContainer: {
     width: '100%',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: wp(16),
+    paddingVertical: hp(10),
   },
   headerIconsOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -26,26 +27,26 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   planeIcon: {
-    width: 126,
-    height: 70,
+    width: wp(126),
+    height: hp(70),
   },
-  fuelIcon: { width: 98, height: 98 },
+  fuelIcon: { width: wp(98), height: hp(98) },
   headerTitle: {
-    fontSize: 30,
+    fontSize: sp(30),
     color: COLORS.Black,
   },
   modalContent: {
     width: '95%',
-    maxWidth: 350,
-    paddingVertical: 30,
+    maxWidth: wp(350),
+    paddingVertical: hp(30),
     alignItems: 'center',
   },
   ringsTexts: {
-    fontSize: 20,
-    marginBottom: 12,
+    fontSize: sp(20),
+    marginBottom: hp(12),
   },
   ringsInfo: {
-    marginBottom: 30,
+    marginBottom: hp(30),
     alignItems: 'center',
   },
   ringsCountContainer: {
@@ -54,11 +55,11 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   ringIcon: {
-    width: 33,
-    height: 33,
+    width: wp(33),
+    height: hp(33),
   },
   ringsValueText: {
-    fontSize: 14,
+    fontSize: sp(14),
   },
   btnContainer: {
     width: '100%',
@@ -68,11 +69,11 @@ export const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    paddingVertical: 22,
+    paddingVertical: hp(22),
     borderRadius: 20,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: sp(24),
     color: COLORS.White,
     textAlign: 'center',
   },

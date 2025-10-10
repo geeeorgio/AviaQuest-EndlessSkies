@@ -1,18 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from 'src/constants';
+import { wp, hp, sp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 30,
-    marginBottom: 20,
+    paddingHorizontal: wp(30),
+    marginBottom: hp(20),
   },
   imageArea: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingTop: 40,
+    paddingTop: hp(40),
   },
   image: {
     width: '80%',
@@ -44,23 +45,23 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   titleText: {
-    fontSize: 30,
+    fontSize: sp(30),
     textTransform: 'uppercase',
     textAlign: 'center',
     color: COLORS.Black,
   },
   descriptionText: {
-    fontSize: 11.5,
+    fontSize: sp(11.5),
     textTransform: 'uppercase',
     color: COLORS.Black,
     textAlign: 'center',
   },
   btn: {
-    paddingVertical: 25,
+    paddingVertical: hp(25),
     width: '80%',
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: sp(24),
     color: COLORS.White,
   },
 });

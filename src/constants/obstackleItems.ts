@@ -9,8 +9,8 @@ export const OBSTACKLES = {
 };
 
 export const MAX_OBSTACLE_LIMITS: Record<ObstacleType, number> = {
-  Bird: 10,
-  Drone: 10,
+  Bird: 5,
+  Drone: 5,
   Ring: 20,
   FuelCan: 10,
 };

@@ -9,6 +9,7 @@ import ObstacleContainer from './ui/GameScene/ObstacleContainer/ObstacleContaine
 import PauseModal from './ui/GameScene/PauseModal/PauseModal';
 import PlayerPlane from './ui/GameScene/PlayerPlane/PlayerPlane';
 import ScrollingBackground from './ui/GameScene/ScrollingBackground/ScrollingBackground';
+import StartOverlay from './ui/GameScene/StartOverlay/StartOverlay';
 import TopBar from './ui/GameScene/TopBar/TopBar';
 import HomeHeader from './ui/HomeComponents/HomeHeader/HomeHeader';
 import HomeLogo from './ui/HomeComponents/HomeLogo/HomeLogo';
@@ -41,4 +42,5 @@ export {
   GameScene,
   GameOverModal,
   ObstacleContainer,
+  StartOverlay,
 };

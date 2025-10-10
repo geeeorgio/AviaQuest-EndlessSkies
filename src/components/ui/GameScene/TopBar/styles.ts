@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   topBar: {
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sideContainer: {
-    width: 66,
+    width: wp(66),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -19,21 +20,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pauseButton: {
-    width: 66,
-    height: 66,
+    width: wp(66),
+    height: hp(66),
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: COLORS.Primary,
     alignItems: 'center',
     backgroundColor: COLORS.White,
   },
-  pauseText: {
-    fontSize: 30,
-    color: COLORS.Primary,
-    textAlign: 'center',
-  },
   recordText: {
-    fontSize: 24,
+    fontSize: sp(24),
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.White,
   },

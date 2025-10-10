@@ -3,11 +3,12 @@ import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from 'src/constants';
+import { hp, wp } from 'src/utils/scaling';
 
 const CustomBackArrowSvg = (props: SvgProps) => (
   <Svg
-    width={props.width || 40}
-    height={props.width || 41}
+    width={props.width || wp(40)}
+    height={props.width || hp(41)}
     fill="none"
     viewBox="0 0 40 41"
     {...props}

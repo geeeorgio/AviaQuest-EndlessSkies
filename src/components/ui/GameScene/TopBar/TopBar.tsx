@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import CustomButton from '../../CustomButton/CustomButton';
 import CustomText from '../../CustomText/CustomText';
 
+import PauseSvgIcon from './PauseSvgIcon/PauseSvgIcon';
 import { styles } from './styles';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/toolkit';
@@ -26,7 +27,7 @@ const TopBar = () => {
           variant="white"
           handlePress={handlePause}
         >
-          <CustomText extraStyle={styles.pauseText}>||</CustomText>
+          <PauseSvgIcon width={30} height={30} />
         </CustomButton>
       </View>
 

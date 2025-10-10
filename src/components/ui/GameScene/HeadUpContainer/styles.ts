@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { hp, wp } from 'src/utils/scaling';
+
 export const styles = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -12,9 +14,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    paddingBottom: 45,
+    paddingHorizontal: wp(20),
+    paddingTop: hp(40),
+    paddingBottom: hp(45),
   },
   bottomBarPosition: {
     marginTop: 'auto',

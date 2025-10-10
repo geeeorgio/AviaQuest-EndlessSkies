@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS, FONTS } from 'src/constants';
+import { hp, sp, wp } from 'src/utils/scaling';
 
 export const styles = StyleSheet.create({
   mainWrapper: {
@@ -8,26 +9,26 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingVertical: 15,
+    paddingVertical: hp(15),
   },
   label: {
-    fontSize: 22,
+    fontSize: sp(22),
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,
   },
   switchesContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: wp(5),
   },
   circlesWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: wp(8),
   },
   circle: {
-    height: 29,
-    width: 29,
+    height: hp(29),
+    width: wp(29),
     borderRadius: 16,
     borderWidth: 3,
     borderColor: COLORS.Primary,
@@ -38,7 +39,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.Primary,
   },
   option: {
-    fontSize: 13,
+    fontSize: sp(13),
     fontFamily: FONTS.NunitoExtra,
     color: COLORS.Black,
   },
