@@ -14,11 +14,11 @@ const OnboardingScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageArea}>
-        <Image
+        {/* <Image
           source={VEHICLES[0].image}
           style={styles.image}
           resizeMode="contain"
-        />
+        /> */}
       </View>
 
       <View style={styles.contentArea}>

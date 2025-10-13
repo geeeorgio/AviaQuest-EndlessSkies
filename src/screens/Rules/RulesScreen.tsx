@@ -10,11 +10,11 @@ const RulesScreen = () => {
     <ScreenWrapper>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.logoContainer}>
-          <Image
+          {/* <Image
             source={require('../../assets/images/background/logoTransparent.png')}
             style={styles.mainPlane}
             resizeMode="contain"
-          />
+          /> */}
         </View>
 
         <View style={styles.rulesList}>
