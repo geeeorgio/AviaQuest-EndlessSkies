@@ -43,6 +43,9 @@ android/app/release/
 *.dm
 *.json
 baselineProfiles/
+aviaQuest.jks
+flylikeaviastar.keystore
+vulcan.keystore
 
 # node.js
 #
