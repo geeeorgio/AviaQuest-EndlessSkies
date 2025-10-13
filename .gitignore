@@ -35,6 +35,14 @@ android/gradle.properties
 *.keystore
 !debug.keystore
 .kotlin/
+flylikeaviastar.keystore
+android/app/*.keystore
+android/app/release/
+*.apk
+*.aab
+*.dm
+*.json
+baselineProfiles/
 
 # node.js
 #

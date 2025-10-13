@@ -1,1 +1,1 @@
-export const GAME_TITLE = 'AviaQuest: Endless Skies';
+export const GAME_TITLE = '';

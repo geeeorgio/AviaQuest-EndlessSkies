@@ -2,13 +2,13 @@ import type { ShareMessageTemplate } from 'src/types/game/sharedMessages';
 
 export const SHARE_MESSAGES: ShareMessageTemplate[] = [
   (rings, plane) =>
-    `🚀 I just flew my ${plane} and collected ✨ ${rings} rings in AviaQuest: Endless Skies! 🔥\nCan you beat my score?\n`,
+    `🚀 I just flew my ${plane} and collected ✨ ${rings} rings! 🔥\nCan you beat my score?\n`,
 
   (rings, plane) =>
     `😎 My ${plane} just survived turbulence and still grabbed ${rings} rings.\nThink you can do better, pilot? 🛫\n`,
 
   (rings, plane) =>
-    `💥 GAME OVER… but not before my ${plane} collected ${rings} rings!\nTry to outfly me in AviaQuest: Endless Skies 🌌\n`,
+    `💥 GAME OVER… but not before my ${plane} collected ${rings} rings!\nTry to outfly me! 🌌\n`,
 
   (rings, plane) =>
     `Score: ${rings} rings ✨\nPlane: ${plane} 🚀\nBeat me 👉\n`,

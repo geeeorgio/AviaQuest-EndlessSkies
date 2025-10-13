@@ -10,7 +10,7 @@ const HomeScreen = () => {
     <ScreenWrapper>
       <View style={styles.mainContainer}>
         <HomeHeader />
-        <HomeLogo />
+        {/* <HomeLogo /> */}
         <HomeMenu />
       </View>
     </ScreenWrapper>

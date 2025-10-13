@@ -1,1 +1,1 @@
-export const GAME_URL = 'https://example.com';
+export const GAME_URL = '';
