@@ -79,7 +79,7 @@ android {
 
     namespace "com.aviaquest"
     defaultConfig {
-        applicationId "com.flyabovevulcan"
+        applicationId "com.rooplainglide"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
