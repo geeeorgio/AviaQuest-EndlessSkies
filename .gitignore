@@ -28,6 +28,7 @@ build/
 .idea
 .gradle
 local.properties
+gradle.properties
 android/gradle.properties
 *.iml
 *.hprof
@@ -38,6 +39,7 @@ android/gradle.properties
 flylikeaviastar.keystore
 android/app/*.keystore
 android/app/release/
+*.jks
 *.apk
 *.aab
 *.dm
