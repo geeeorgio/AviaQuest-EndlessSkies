@@ -1,7 +1,7 @@
 import type { Vehicle } from 'src/types/game/vehicles';
 
 const GameAssets = {
-  PlanePrimary: require('../assets/images/gameItems/plane.png'),
+  PlanePrimary: require('../assets/images/background/airplain-roo.png'),
   PlaneSmall: require('../assets/images/gameItems/smallPlane.png'),
   Plane2: require('../assets/images/gameItems/airplane2.png'),
   PlaneF1: require('../assets/images/gameItems/airplaneF1.png'),

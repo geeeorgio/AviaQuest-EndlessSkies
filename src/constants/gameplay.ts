@@ -1,5 +1,5 @@
 export const MAX_FUEL = 100;
-export const PLANE_SIZE = { width: 70, height: 39 };
+export const PLANE_SIZE = { width: 99, height: 69 };
 export const OBSTACKLES_SIZES = {
   Bird: { width: 61, height: 38 },
   Drone: { width: 67, height: 41 },
