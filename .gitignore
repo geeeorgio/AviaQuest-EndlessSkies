@@ -46,6 +46,11 @@ baselineProfiles/
 aviaQuest.jks
 flylikeaviastar.keystore
 vulcan.keystore
+android/app/src/aviaQuest.jks
+android/app/src/debug.keystore
+android/app/src/flylikeaviastar.keystore
+android/app/src/vulcan.keystore
+android/app/src/foo_upload.keystore
 
 # node.js
 #
